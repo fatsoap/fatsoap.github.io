@@ -31,10 +31,8 @@ body{
     left: 0px;
 }
 
-.cute_logo{
+._logo{
     position: absolute;
-    left: 5px;
-    top: 5px;
     width: 40px;
     height: 40px; 
 }
@@ -46,19 +44,33 @@ body{
     height: 100px; 
 }
 
-.login_block{
+._block{
     background-position-x: -160px;
     opacity:1;
     position: absolute;
-    top: 100px;
-    left: 30%;
+    top: 150px;
+    left: 80px;
     text-align:center;
     width: 500px;
+	height: 500px;
     border: 3px solid #f3ed95;
     padding: 10px;
 }
 
-.login_text{
+.list_block{
+	background-color: #00000088;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    width: 45%;
+    height: 700px;
+    background-color: #3f3d3b9f;
+    color: #e5e2e2;
+    text-align: left;
+    font-size: 30px;
+}
+
+._text{
     background-color: #00000088;
     margin:20px;
     width: 460px; 
@@ -69,14 +81,14 @@ body{
     color: #e0dede;
 }
 
-.login_input{
+._input{
     width:220px;
     font-size: 20px;
     background-color: #00000088;
     color: #ece6e6;
 }
 
-.login_button{
+._button{
     background-color: #00000088;
     padding-bottom: 4px;
     padding-left: 12px;
@@ -88,35 +100,13 @@ body{
     margin: 5px;
 }
 
-.login_button:hover{
+._button:hover{
     background-color: #ffffffe8;
     color: #2b2a2a;
 }
 
-/*Gallery*/
-.top_title{
-    background-color: #00000088;
-    position: absolute;
-    top: 50px;
-    left: 0px;
-    width: 100%;
-    padding-bottom: 4px;
-    padding-left: 0px;
-    padding-right: 0px;
-    font-size: 40px;
-    color: #ece6e6;
-    font-family: 'Segoe UI';
-    text-align: center;
-    margin: 0px;
-}
 
-.top_title p{
-    background-color: #a2eefc28;
-    border-top: #999 solid 2px;
-    border-bottom: #999 solid 2px;    
-}
-
-.gallery_block{
+.list_blsock{
     background-color: #00000088;
     position: absolute;
     top: 300px;
@@ -174,24 +164,7 @@ a:link, a:visited, a:hover, a:active{
     margin:4px;  
 }
 
-/*post article*/
-.post_button{
-    background-color: rgba(151, 197, 240, 0.725);
-    font-size: 30px;
-    color: #ece6e6;
-    position: absolute;
-    right: 3%;
-    top: 200px;
-    width: 150px;
-    height: 55px;
-    border: #eedbdb solid 2px;
-    border-radius: 10px;
-    text-align: center;
-}
-.post_button:hover{
-    background-color: #b8f7d0e8;
-    color: #2b2a2a;
-}
+
 #post_page{
     display: none;
     border: #999 solid 2px;
@@ -252,17 +225,6 @@ a:link, a:visited, a:hover, a:active{
 
 
 /*admin*/
-.command_hint{
-    position: absolute;
-    left: 50%;
-    top: 50px;
-    width: 45%;
-    height: 700px;
-    background-color: #3f3d3b9f;
-    color: #e5e2e2;
-    text-align: left;
-    font-size: 20px;
-}
 .command_res{
     resize:none;
     position: absolute;
