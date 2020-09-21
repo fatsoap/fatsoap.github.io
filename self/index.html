@@ -1,0 +1,89 @@
+<div class="post-body" itemprop="articleBody">
+
+      
+<h2 id="開始之前"><a href="#開始之前" class="headerlink" title="開始之前"></a>開始之前</h2><ul>
+<li><code>mkdir demo</code><br>創建一個叫做demo的資料夾</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><code>cd</code><br>cd加一個空白鍵後，再<strong>按下tab</strong>鍵會列出當前目錄的清單</li>
+<li><code>cd demo</code><br>前往demo這個資料夾</li>
+<li><code>cd ..</code><br>回資料夾的<strong>上一層</strong></li>
+<li><code>cd ~</code><br>回到電腦<strong>最外層</strong>，像是根目錄Home之類的。</li>
+<li><code>touch index.html</code><br>新增index.html這個檔案</li>
+<li><code>git init</code><br>初始化git，創建git儲存庫。</li>
+</ul>
+<h2 id="基礎操作"><a href="#基礎操作" class="headerlink" title="基礎操作"></a>基礎操作</h2><ul>
+<li><code>git add .</code><br>將所有檔案加入索引，<strong>準備</strong>加入版本控管。</li>
+<li><code>git status</code>或<code>git sta</code><br>查看現在索引的狀態，哪些檔案未被追蹤或已經追蹤。</li>
+<li><code>git commit -m&#39;輸入一些備註&#39;</code><br>將索引內容建立一個<strong>新的</strong>版本控管，未來可能會有很多個。</li>
+<li><code>git add app</code><br>跟<code>git add .</code>差別在於只將app資料夾的檔案加入索引。</li>
+</ul>
+<h3 id="狀況一：終端機畫面好亂想清空"><a href="#狀況一：終端機畫面好亂想清空" class="headerlink" title="狀況一：終端機畫面好亂想清空"></a>狀況一：終端機畫面好亂想清空</h3><ul>
+<li><code>clear</code></li>
+</ul>
+<h3 id="狀況二：想查看過去版本的內容-HEAD"><a href="#狀況二：想查看過去版本的內容-HEAD" class="headerlink" title="狀況二：想查看過去版本的內容(HEAD)"></a>狀況二：想查看過去版本的內容(HEAD)</h3><p>HEAD為目前所在位置的指標。</p>
+<ul>
+<li><code>git checkout [前四碼]</code><br>回到以前得某個指定版本狀態，查看過去的內容。</li>
+<li><code>git checkout master</code><br>還原最新版本。</li>
+</ul>
+<h2 id="復原檔案"><a href="#復原檔案" class="headerlink" title="復原檔案"></a>復原檔案</h2><h3 id="狀況一：某個檔案改壞了，需要復原到上一個-最新-Commit紀錄"><a href="#狀況一：某個檔案改壞了，需要復原到上一個-最新-Commit紀錄" class="headerlink" title="狀況一：某個檔案改壞了，需要復原到上一個(最新)Commit紀錄"></a>狀況一：某個檔案改壞了，需要復原到上一個(最新)Commit紀錄</h3><ul>
+<li><code>git checkout 檔案名稱</code><br>將這個檔案復原回最新一個(上一個)版本。</li>
+</ul>
+<h3 id="狀況二：整個工作目錄都亂了，想要還原整個工作目錄的檔案和索引"><a href="#狀況二：整個工作目錄都亂了，想要還原整個工作目錄的檔案和索引" class="headerlink" title="狀況二：整個工作目錄都亂了，想要還原整個工作目錄的檔案和索引"></a>狀況二：整個工作目錄都亂了，想要還原整個工作目錄的檔案和索引</h3><ul>
+<li><code>git reset --hard</code><br>將整個目錄復原到最新的Commit狀態，例如：<br>Commit1 –&gt; 編輯 –&gt; Commit2 –&gt; 編輯發現壞了<br>使用<code>git reset --hard</code>回到<br>Commit1 –&gt; 編輯 –&gt; Commit2</li>
+</ul>
+<h2 id="復原索引"><a href="#復原索引" class="headerlink" title="復原索引"></a>復原索引</h2><h3 id="狀況一：git-add-後希望某個檔案不要加入追蹤了"><a href="#狀況一：git-add-後希望某個檔案不要加入追蹤了" class="headerlink" title="狀況一：git add .後希望某個檔案不要加入追蹤了"></a>狀況一：<code>git add .</code>後希望某個檔案不要加入追蹤了</h3><ul>
+<li><code>git reset HEAD 檔案名稱</code><br>將這個檔案從暫存索引中移除，待會就不會被Commit出去了。<h3 id="狀況二：全部都先不要追蹤了"><a href="#狀況二：全部都先不要追蹤了" class="headerlink" title="狀況二：全部都先不要追蹤了"></a>狀況二：全部都先不要追蹤了</h3></li>
+<li><code>git reset HEAD</code><br>將所有檔案從暫存索引中移除，取消追蹤。</li>
+</ul>
+<h2 id="觀念提醒"><a href="#觀念提醒" class="headerlink" title="觀念提醒"></a>觀念提醒</h2><ul>
+<li>要使用 Git 版本控管，你必須先建立「工作目錄」與「版本庫」。(mkdir, git init)</li>
+<li>你要先在「工作目錄」進行開發，你可能會建立目錄、建立檔案、修改檔案、刪除檔案、… 等操作。</li>
+<li>然後當你想提交一個新版本到 Git 的「儲存庫」裡，一定要先更新「索引」狀態。(git add, git mv, …)</li>
+<li>然後 Git 會依據「索引」當下的狀態，決定要把那些檔案提交到 Git 的「儲存庫」裡。(git status)</li>
+<li>最後提交變更時 (git commit)，才會把版本資訊寫入到「物件儲存區」當中 (此時將會寫入 commit 物件)。<br><a href="https://github.com/doggy8088/Learn-Git-in-30-days/blob/master/zh-tw/05.md" target="_blank" rel="noopener">資料來源-保哥</a></li>
+</ul>
+<hr>
+<h2 id="branch-分支"><a href="#branch-分支" class="headerlink" title="branch 分支"></a>branch 分支</h2><ul>
+<li><code>git branch</code><br>查看目前有哪些分支。</li>
+<li><code>git branch 分支名稱</code><br>建立一個新的分支。</li>
+<li><code>git checkout 分支名稱</code><br>前往這個分支。</li>
+<li><code>git merge 分支名稱</code><br>假設我有兩個分支：master和branch，今天我要將branch合併(merge)至master時，請注意必須將目前分支指回<strong>master</strong><blockquote>
+<p>建議搭配GUI(source tree)使用。</p>
+</blockquote>
+<h2 id="push-推送分支到遠端數據庫-reomte"><a href="#push-推送分支到遠端數據庫-reomte" class="headerlink" title="push 推送分支到遠端數據庫(reomte)"></a>push 推送分支到遠端數據庫(reomte)</h2>數據庫可能會有很多個，像是開發用或正式發布用的。</li>
+<li><code>git reomte</code><br>查詢目前有哪些遠端數據庫名稱，以github來說會取得預設的名稱<strong>origin</strong></li>
+<li><code>git push [origin] [branch_name](你要推的分支)</code><br>透過以上方法將分支推到github上</li>
+</ul>
+<p><a href="https://gitbook.tw/chapters/github/push-to-github.html" target="_blank" rel="noopener">為你自己學 Git  - push 詳細介紹</a></p>
+<h2 id="pull分支-遇到衝突時"><a href="#pull分支-遇到衝突時" class="headerlink" title="pull分支(遇到衝突時)"></a>pull分支(遇到衝突時)</h2><p>當有多人協作的專案時，會有不同時間上傳的不同版本問題，因此產生衝突。</p>
+<ul>
+<li><code>git pull</code><br>需先透過<code>git pull</code>將最新版本pull下來，此時會自動進行merge，並跳出一個視窗：<br><img src="https://i.imgur.com/rPQLcPK.png =350x200" alt=""><br>在此輸入<code>:wq!</code>儲存並退出即可，此為Vim是Git預設的編輯器，查看下方Vim介紹。</li>
+</ul>
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><p>Vim是Git預設的編輯器，這邊是<strong>希望你寫一些備註說明為什麼要合併</strong>，預設說明如上截圖(不含#號部分內容)。主要會用到的指令：</p>
+<h3 id="Normal模式："><a href="#Normal模式：" class="headerlink" title="Normal模式："></a>Normal模式：</h3><ul>
+<li><code>i</code>(insert)或<code>a</code>(append)或<code>o</code>(新增一行)進入Insert模式</li>
+<li><code>:w</code> 存檔</li>
+<li><code>:q</code> 離開</li>
+<li><code>:wq</code> 存檔然後離開</li>
+</ul>
+<h3 id="Insert模式：-在這邊我們用來編輯Commit訊息"><a href="#Insert模式：-在這邊我們用來編輯Commit訊息" class="headerlink" title="Insert模式：(在這邊我們用來編輯Commit訊息)"></a>Insert模式：(在這邊我們用來編輯Commit訊息)</h3><ul>
+<li><code>esc鍵</code> 或 <code>ctrl+[</code> 退回Normal模式</li>
+</ul>
+<h2 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h2><p>git pull = git fetch + git merge<br>pull就是將遠端的分支和你本地的分支進行合併(merge)的動作，<br>但有時候你不希望<code>pull</code>下來導致自己的數據庫太亂又擔心有衝突時，可以先使用下面這個指令。</p>
+<ul>
+<li><code>git fetch</code></li>
+</ul>
+<p>可以等到你看過沒問題後，再進行合併(merge)的動作。<br>所以如果不滿意呢？不需要撤销， git fetch 對本地分支没有影響。</p>
+<p><a href="https://gitbook.tw/chapters/github/pull-from-github.html" target="_blank" rel="noopener">fetch詳細介紹</a></p>
+<hr>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li><p><code>touch .gitignore</code><br>忽略檔案 -<a href="https://github.com/github/gitignore" target="_blank" rel="noopener">常用ignore</a></p>
+</li>
+<li><p>參考架構圖 <a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">來源</a><br><img src="https://nvie.com/img/git-model@2x.png" alt=""></p>
+</li>
+</ul>
+
+      
+</div>
