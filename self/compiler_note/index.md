@@ -63,26 +63,26 @@ platform-dependent
 >> 5. A subset of the states called the accepting or final state 
 > * Deterministic(確定性的) Finite Automata ( DFA )
 >> * only one transition from a state that have the same label<br>
-<img src='./assets/dfa.png'> 
+<img src='./assets/dfa.PNG'> 
 >> * represented with transition table ( good )
 >> * represented with explicit control ( noob )
 >> * Nondeterministic(不確定性的) finite automaton ( NFA )
 >> * multiple transitions from a state that have the same label<br>
-<img src='./assets/nfa.png'> 
+<img src='./assets/nfa.PNG'> 
 >> * have transitions labeled with λ 
 > ### Regular expression is equivalent to FA
 > * 雙向的，可以互轉
 >> #### RE to NFA : 
 >> 1. A|B <br>
-<img src='./assets/nfa_AorB.png'>
+<img src='./assets/nfa_AorB.PNG'>
 >> 2. AB <br>
-<img src='./assets/nfa_AB.png'>
+<img src='./assets/nfa_AB.PNG'>
 >> 3. A* <br>
-<img src='./assets/nfa_A_star.png'>
+<img src='./assets/nfa_A_star.PNG'>
 >> #### NFA to DFA :
 >> * subset construction algorithm <br>
-<img src='./assets/nfa_to_dfa_1.png'> <br>
-<img src='./assets/nfa_to_dfa_2.png'>
+<img src='./assets/nfa_to_dfa_1.PNG'> <br>
+<img src='./assets/nfa_to_dfa_2.PNG'>
 > ### IMPORTANT NOTES
 >> #### DFA/NFA are not capable of remembering the occurrences of symbols
 >> * A~n~B~n~ only can represented by CFM
