@@ -54,7 +54,7 @@ Router
 * Example : 
 >* PC -> TCP connection(req) -> Server
 >* PC <- TCP connection(res) <- Server
->* PC -> Get 'http://www.abc.com/pic.png'(req) -> Server
+>* PC -> Get 'http://www.abc.com/pic.PNG'(req) -> Server
 >* PC <- File(res) <- Server
 
 ## Page 1-10 Network edge
@@ -141,7 +141,7 @@ Streaming media(music, video) , DNS , telephony(skype)
 * Packet-switching : Great for bursty data (爆發性資料) use resource sharing , no call setup
 * Circuit-switching : Great for important file transfer, (TCP協定避免過於擁擠時會掉封包)
 
-<img src='./assets/1-26.png' />
+<img src='./assets/1-26.PNG' />
 
 ## Page 1-28 Access networks
 ---
@@ -176,7 +176,7 @@ Streaming media(music, video) , DNS , telephony(skype)
 * Lv4. Ethernet
 * Lv5. wireless access point(路由器)
 
-<img src="./assets/1-28.png" />
+<img src="./assets/1-28.PNG" />
 
 ## Page 1-39 Physical Media
 ---
@@ -187,13 +187,13 @@ Streaming media(music, video) , DNS , telephony(skype)
 >1. Twisted Pair(TP) 雙絞線
 >* 兩條絞在一起，抵銷電磁波干擾
 
-<img src="./assets/1-39.png" />
+<img src="./assets/1-39.PNG" />
 
 >2. Coaxial cable(銅軸電纜)
 >* bidirectional(雙向)
 >* baseband (single channel) , broadband (multiple channels)
 
-<img src="./assets/1-40-1.png" />
+<img src="./assets/1-40-1.PNG" />
 
 >3. Fiber optic cable:
 >* glass fiber carrying light pulses, each pulse a bit
@@ -201,7 +201,7 @@ Streaming media(music, video) , DNS , telephony(skype)
 >* low error rate(不被電磁波干擾)
 >* repeater (訊號放大器，延長訊號傳遞)
 
-<img src="./assets/1-40-2.png" />
+<img src="./assets/1-40-2.PNG" />
 
 2. Unguided media(非實體材料) : Radio
 * signal carried in electromagnetic spectrum(電磁波)
