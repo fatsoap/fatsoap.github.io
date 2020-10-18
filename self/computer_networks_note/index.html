@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="MarkdownViewer++" />
+        <title>index.md</title>
+        <style type="text/css">
+            
+/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
+td, h1, h2, h3, h4, h5, p, ul, ol, li {
+    page-break-inside: avoid; 
+}
+
+        </style>
+      </head>
+    <body>
+        <link href="./style.css" rel="stylesheet" />
+<h1 id="chapter-1-introduction">Chapter 1 : Introduction</h1>
+<h2 id="page-1-2-roadmap">Page 1-2 Roadmap</h2>
+<hr />
+<h3 id="protocol">Protocol :</h3>
+<ul>
+<li>通訊協定</li>
+</ul>
+<h3 id="edge">Edge :</h3>
+<ul>
+<li>網路的邊邊 :  PC , Phone, Sever</li>
+</ul>
+<h3 id="core">Core :</h3>
+<p>Router</p>
+<h3 id="access-net-phyical-media">Access net , Phyical media :</h3>
+<ul>
+<li>如何接到網路 =&gt; 有線、無線</li>
+<li>連線的材料 =&gt; 銅、光纖、電磁波</li>
+</ul>
+<h3 id="isp-structure">ISP structure :</h3>
+<ul>
+<li>ISP(網際網路服務供應商)</li>
+<li>網路是由階層式的方式連接，介紹連接的方法</li>
+</ul>
+<h3 id="preformance">Preformance :</h3>
+<ul>
+<li>網路封包loss、delay，如何控制loss &amp; delay</li>
+</ul>
+<h3 id="protocol-layers-service-models">Protocol layers , service models :</h3>
+<ul>
+<li>protolcol , service 模組化</li>
+</ul>
+<h2 id="page-1-4-whats-the-internet-nuts-and-bolts-view">Page 1-4 What’s the Internet: &quot;nuts and bolts&quot; view</h2>
+<hr />
+<h3 id="millions-of-connected-computing-devices">Millions of connected computing devices :</h3>
+<ul>
+<li>hosts = end-systems (PC, phone , sever)</li>
+<li>running network apps</li>
+</ul>
+<h3 id="communication-links">Communication links :</h3>
+<ul>
+<li>fiber, copper, radio, satellite</li>
+<li>transmission rate = <strong>bandwidth (頻寬)</li>
+</ul>
+<h3 id="routers">Routers :</h3>
+<ul>
+<li>路由器，判斷封包傳送路徑</li>
+</ul>
+<h3 id="protocols">Protocols :</h3>
+<ul>
+<li>網路通訊協定 : TCP , IP , HTTP , FTP , PPP</li>
+</ul>
+<h3 id="internet-network-of-networks">Internet = &quot;network of networks&quot; :</h3>
+<ul>
+<li>loosely hierarchical 階層式</li>
+<li>NAT : a area have a public IP that connect to multiple private IP in this area</li>
+</ul>
+<h3 id="internet-standards">Internet standards :</h3>
+<ul>
+<li>RFC , IETF : 制定標準協會</li>
+</ul>
+<h2 id="page-1-6-whats-the-internet-a-service-view">Page 1-6 What’s the Internet: a &quot;service&quot; view</h2>
+<hr />
+<h3 id="communication-infrastructure">Communication Infrastructure</h3>
+<ul>
+<li>分散式設備應用 : Web, email, games, e-commerce, database., voting, file (MP3) sharing <br/></li>
+<li>服務 :</li>
+</ul>
+<blockquote>
+<ol>
+<li>connectionless : 無須建連線 (UTP) =&gt; don't care loss , delay <br></li>
+<li>connection=oriented : 要先建連線 (TCP) =&gt; 減少loss , delay</li>
+</ol>
+</blockquote>
+<h2 id="page-1-7-whats-a-protocol">Page 1-7 What’s a protocol?</h2>
+<hr />
+<h3 id="network-protocols">Network protocols :</h3>
+<ul>
+<li>Define : <strong>format , order , response actions</strong>(遵循一定格式、順序、回應方法)</li>
+<li>Example :</li>
+</ul>
+<blockquote>
+<ul>
+<li>PC -&gt; TCP connection(req) -&gt; Server</li>
+<li>PC &lt;- TCP connection(res) &lt;- Server</li>
+<li>PC -&gt; Get 'http://www.abc.com/pic.png'(req) -&gt; Server</li>
+<li>PC &lt;- File(res) &lt;- Server</li>
+</ul>
+</blockquote>
+<h2 id="page-1-10-network-edge">Page 1-10 Network edge</h2>
+<hr />
+<h3 id="end-systems-hosts">End systems (hosts):</h3>
+<ul>
+<li>run application : web , email (at edge of network)</li>
+</ul>
+<h3 id="clientsever-modol">Client/Sever modol :</h3>
+<ul>
+<li>client host requests and receives response from alway-on sever</li>
+</ul>
+<h3 id="peer-2-peer-moudole">Peer-2-Peer moudole :</h3>
+<ul>
+<li>client to client (no sever)</li>
+</ul>
+<h2 id="page-1-12-connection-oriented-service">Page 1-12 Connection-oriented service</h2>
+<hr />
+<h3 id="goal-data-transfer-between-end-systems">Goal : data transfer between end systems</h3>
+<h4 id="tcp-service-transmission-control-protocol">TCP service (Transmission Control Protocol)</h4>
+<ol>
+<li>handshaking(建連線) : call and setup (prepare for) data transfer ahead of time</li>
+<li>reliable , in ordered byte stream data transfer</li>
+</ol>
+<ul>
+<li>loss: acknowledgements and retransmissions(確認收到不然重新傳送)</li>
+</ul>
+<ol start="3">
+<li>flow control (流量控制)</li>
+</ol>
+<ul>
+<li>sender won’t overwhelm receiver</li>
+</ul>
+<ol start="4">
+<li>congestion control (網路擁擠控制)</li>
+</ol>
+<ul>
+<li>senders “slow down sending rate” when network congested(掉封包時)</li>
+</ul>
+<h2 id="page-1-13-connectionless-service">Page 1-13 Connectionless service</h2>
+<hr />
+<h3 id="goal-data-transfer-between-end-systems-1">Goal : data transfer between end systems</h3>
+<h4 id="udp-user-datagram-protocol-connectionless-service">UDP (User Datagram Protocol) connectionless service</h4>
+<ol>
+<li>unreliable data transfer (可能掉封包)</li>
+<li>no flow control (沒有流量控制)</li>
+<li>no congestion control (沒有網路擁擠控制)</li>
+</ol>
+<h2 id="page-1-12-1-13-summary">Page 1-12 &amp; 1-13 Summary</h2>
+<hr />
+<h3 id="app-using-tcp-send-important-file">App using TCP (send important file):</h3>
+<p>HTTP(web) , FTP(file transfer) , Telnet(remote login) , SMTP(email)</p>
+<h3 id="app-using-udp-dont-care-loss">App using UDP (don't care loss):</h3>
+<p>Streaming media(music, video) , DNS , telephony(skype)</p>
+<h2 id="page-1-15-network-core">Page 1-15 Network Core</h2>
+<hr />
+<h3 id="mesh-of-interconnected-routers">Mesh of interconnected routers</h3>
+<ul>
+<li>every router have more than one connect to other router</li>
+</ul>
+<h3 id="the-fundamental-question-how-is-data-transferred-through-net">The fundamental question : how is data transferred through net?</h3>
+<h4 id="circuit-switching">Circuit Switching (沒有競爭) :</h4>
+<ol>
+<li>End-end resources reserved for “call” (路徑保留專屬資源)</li>
+</ol>
+<ul>
+<li>link bandwidth,  switch capacity (保留頻寬，router 承載量)</li>
+<li>dedicated resources: no sharing (保留的資源不分享給其他連線)</li>
+<li>call setup required (要事先預約)</li>
+</ul>
+<ol start="2">
+<li>network resources (e.g.. bandwidth) divided into &quot;pieces&quot;(資源切片)</li>
+</ol>
+<ul>
+<li>pieces allocated to calls (切片根據需求分配)</li>
+<li>resource piece idle if not used by owning call (專屬切片no sharing)</li>
+<li>divide by <strong>frequency division</strong> or <strong>time division</strong></li>
+</ul>
+<ol start="3">
+<li>FDMA (frequency division)</li>
+</ol>
+<ul>
+<li>平分頻寬，每個使用時間一樣(可使用頻寬減少)</li>
+</ul>
+<ol start="4">
+<li>TDMA (time division)</li>
+</ol>
+<ul>
+<li>平分時間，每個使用頻寬一樣(可使用時間減少)</li>
+</ul>
+<h4 id="packet-switching">Packet-switching (互相競爭) :</h4>
+<ol>
+<li>Each end-end data stream divided into packets (傳送的資料切割成封包)</li>
+</ol>
+<ul>
+<li>user A, B packets share network resources (沒有保留資源)</li>
+<li>each packet uses full link bandwidth  (用全部頻寬)</li>
+</ul>
+<ol start="2">
+<li>Resource contention (誰搶到資源就誰用) :</li>
+</ol>
+<ul>
+<li>aggregate resource demand can exceed amount available (傳送需求大於通道供給)</li>
+<li>congestion: packets queue, wait for link use (網路擁擠 , 存到buffer等到link有位子)</li>
+<li>store and forward: packets move one hop at a time(封包排隊等link有空位)</li>
+</ul>
+<ol start="3">
+<li>statistical multiplexing (統計多重化) :</li>
+</ol>
+<ul>
+<li>封包排隊的演算法，根據流量等等分配</li>
+</ul>
+<ol start="4">
+<li>Message Segmenting (封包切割) :</li>
+</ol>
+<ul>
+<li>適量切割，再利用pipeline減少delay</li>
+</ul>
+<ol start="5">
+<li>Path selection algorithms(shorter path) :</li>
+</ol>
+<blockquote>
+<ul>
+<li>select less router , more bandwidth .....</li>
+</ul>
+<ol>
+<li>Datagram network : (封包走不固定路線)</li>
+</ol>
+<ul>
+<li>every packet have destination address (封包目的地)</li>
+<li>router may change during session (邊傳邊看怎走)</li>
+</ul>
+<ol start="2">
+<li>virtual circuit network (封包走固定路線):</li>
+</ol>
+<ul>
+<li>fixed path determined at call setup time (call一次來確認路徑怎走)</li>
+<li>routers maintain per-call state (router維護每個call的tag路徑)</li>
+<li>each packet carries tag (virtual circuit ID)，router 根據tag分配路徑</li>
+</ul>
+</blockquote>
+<h4 id="curcuit-switching-v.s-packet-switching">Curcuit switching V.S Packet switching :</h4>
+<ol>
+<li>For 1 Mbps link &amp; each user : 100 kbps when active , active 10% of time :</li>
+</ol>
+<ul>
+<li>circuit switching : 10 users</li>
+<li>packet switching : 35 users (probability &gt; 10 users active at same time less than 0.0004)</li>
+</ul>
+<ol start="2">
+<li>When to use circuit and packet :</li>
+</ol>
+<ul>
+<li>Packet-switching : Great for bursty data (爆發性資料) use resource sharing , no call setup</li>
+<li>Circuit-switching : Great for important file transfer, (TCP協定避免過於擁擠時會掉封包)</li>
+</ul>
+<img src='./assets/1-26.png' />
+<h2 id="page-1-28-access-networks">Page 1-28 Access networks</h2>
+<hr />
+<h3 id="how-to-connect-end-systems-to-edge-router">How to connect end systems to edge router?</h3>
+<ol>
+<li>Residential access nets (一般民用)</li>
+</ol>
+<ul>
+<li>Point to point access</li>
+</ul>
+<blockquote>
+<ul>
+<li>Dialup via modem(數據機、電話線撥接) :</li>
+</ul>
+<blockquote>
+<p>Slow , can't be always on;</p>
+</blockquote>
+<ul>
+<li>ADSL (asymmetric digital subscriber line) :</li>
+</ul>
+<blockquote>
+<ul>
+<li>上傳和下載速度不一樣</li>
+<li>Use FDM (frequency divide)</li>
+</ul>
+</blockquote>
+</blockquote>
+<ul>
+<li>Cable modems</li>
+</ul>
+<blockquote>
+<ul>
+<li>HFC: hybrid fiber coaxial cable(銅軸電纜、光纖)</li>
+<li>Asymmetric(上傳和下載速度不一樣)</li>
+<li>network of cable and fiber attaches homes to ISP router</li>
+</ul>
+<blockquote>
+<ul>
+<li>shared access to router among home</li>
+<li>issues: congestion, dimensioning</li>
+</ul>
+</blockquote>
+</blockquote>
+<ol start="2">
+<li>Company access : Local area networks (LAN)</li>
+</ol>
+<ul>
+<li>Ethernet :</li>
+</ul>
+<blockquote>
+<ol>
+<li>shared or dedicated(專用) link connects end system and router</li>
+<li>Deployment(部署) : institutions(機構), home(家), company (公司)</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>Wireless access networks</li>
+</ol>
+<ul>
+<li>End systems connect to routers via base station</li>
+</ul>
+<blockquote>
+<ul>
+<li>base station(基地台) also known as “access point”</li>
+</ul>
+</blockquote>
+<ol start="4">
+<li>Home networks (Typical home network components):</li>
+</ol>
+<ul>
+<li>Lv1. Router</li>
+<li>Lv2. ADSL or cable modem (public IP)</li>
+<li>Lv3. small router(private IP) , include : firewall , NAT</li>
+<li>Lv4. Ethernet</li>
+<li>Lv5. wireless access point(路由器)</li>
+</ul>
+<img src="./assets/1-28.png" />
+<h2 id="page-1-39-physical-media">Page 1-39 Physical Media</h2>
+<hr />
+<h3 id="bit">Bit :</h3>
+<ul>
+<li>傳輸最基本單位</li>
+</ul>
+<h3 id="physical-link">Physical link :</h3>
+<ol>
+<li>Guided media(實體材料): Copper, Fiber, Coax</li>
+</ol>
+<blockquote>
+<ol>
+<li>Twisted Pair(TP) 雙絞線</li>
+</ol>
+<ul>
+<li>兩條絞在一起，抵銷電磁波干擾</li>
+</ul>
+</blockquote>
+<img src="./assets/1-39.png" />
+<blockquote>
+<ol start="2">
+<li>Coaxial cable(銅軸電纜)</li>
+</ol>
+<ul>
+<li>bidirectional(雙向)</li>
+<li>baseband (single channel) , broadband (multiple channels)</li>
+</ul>
+</blockquote>
+<img src="./assets/1-40-1.png" />
+<blockquote>
+<ol start="3">
+<li>Fiber optic cable:</li>
+</ol>
+<ul>
+<li>glass fiber carrying light pulses, each pulse a bit</li>
+<li>high-speed</li>
+<li>low error rate(不被電磁波干擾)</li>
+<li>repeater (訊號放大器，延長訊號傳遞)</li>
+</ul>
+</blockquote>
+<img src="./assets/1-40-2.png" />
+<ol start="2">
+<li>Unguided media(非實體材料) : Radio</li>
+</ol>
+<ul>
+<li>signal carried in electromagnetic spectrum(電磁波)</li>
+<li>no physical “wire”</li>
+<li>bidirectional</li>
+<li>propagation environment effects:</li>
+</ul>
+<blockquote>
+<ol>
+<li>reflection (訊號反射)</li>
+<li>obstruction by objects (訊號被阻擋)</li>
+<li>interference (訊號干擾)</li>
+</ol>
+</blockquote>
+<ul>
+<li>Radio link types :</li>
+</ul>
+<blockquote>
+<ol>
+<li>Terrestrial  microwave (微波)</li>
+</ol>
+<ul>
+<li>e.g. up to 45 Mbps channels</li>
+</ul>
+<ol start="2">
+<li>LAN (Wifi .. )</li>
+</ol>
+<ul>
+<li>2Mbps, 11Mbps, 54Mbps, 108 Mbps</li>
+</ul>
+<ol start="3">
+<li>Wide-area (cellular 蜂窩狀)</li>
+</ol>
+<ul>
+<li>手機4G , 5G : hundreds of kbps</li>
+</ul>
+<ol start="4">
+<li>Satellite</li>
+</ol>
+<ul>
+<li>up to 50Mbps channel (or multiple smaller channels)</li>
+<li>270 msec end-end delay(延遲長)</li>
+<li>geosynchronous versus low-earth-orbit satellites (LEOS低軌衛星)</li>
+</ul>
+</blockquote>
+
+    </body>
+</html>
+            
