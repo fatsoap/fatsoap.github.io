@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="MarkdownViewer++" />
+        <title>note.md</title>
+        <style type="text/css">
+            
+/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
+td, h1, h2, h3, h4, h5, p, ul, ol, li {
+    page-break-inside: avoid; 
+}
+
+        </style>
+      </head>
+    <body>
+        <link href="./style.css" rel="stylesheet" />
+<h1 id="compiler">Compiler</h1>
+<hr />
+<h2 id="what-is-compiler">What is Compiler</h2>
+<ul>
+<li>compiler is a program that accepts programming language ,<br>
+then output assembly language which will be assembled into machine language</li>
+<li>OS dependent</li>
+<li>this process is compilation</li>
+</ul>
+<h2 id="front-end-back-end">Front-end &amp; Back-end</h2>
+<ul>
+<li>font-end 分析 source code 並轉成intermediate representation ( IR )<br>
+，platform-independent盡量與平台無關。</li>
+<li>back-end tranform IR to target code( assembly code )<br>
+，machine dependent</li>
+</ul>
+<h2 id="pure-machine-code">Pure machine code</h2>
+<ul>
+<li>與OS平台無關的機器語言<br>
+platform-independent</li>
+</ul>
+<h2 id="augmented-machine-code">Augmented machine code</h2>
+<ul>
+<li>會受到不同平台影響的機器語言(system call , window APIs)<br>
+platform-dependent</li>
+</ul>
+<h2 id="virtual-machine-code">Virtual machine code</h2>
+<ul>
+<li>generate virtual machine instructions</li>
+<li>run with VM interpreter<br>
+( interpreter is OS dependent )</li>
+<li>benifit : portability</li>
+</ul>
+<h2 id="bootstrapping">Bootstrapping</h2>
+<ul>
+<li>將A compiler 的code generation改成B assembly code <br>
+然後將A 的source code 餵給自己</li>
+</ul>
+<h2 id="compiler-vs.interpreter">Compiler vs. Interpreter</h2>
+<ul>
+<li>compiler
+全部翻譯完才執行</li>
+<li>interpreter
+直譯器，翻譯一行，執行一行</li>
+</ul>
+<h2 id="scanner">Scanner</h2>
+<ul>
+<li>scanner會分析輸入的字串charecter stream，並分類轉成token string</li>
+<li>also called <strong>lexical analyzer</strong></li>
+</ul>
+<blockquote>
+<h3 id="token">Token</h3>
+<ul>
+<li>terminal symbol (cannot be rewritten)</li>
+<li>struct token { type , value , name }</li>
+</ul>
+<h3 id="regular-expression">Regular expression</h3>
+<ul>
+<li>是被用來匹配字串中字元組合的規則</li>
+<li>根據input的character stream 轉換成對應的terminal symbol(token)</li>
+<li>a set of string s defined by a regular expression is called a regular set</li>
+</ul>
+<blockquote>
+<h4 id="rules">Rules</h4>
+<ul>
+<li>' | ' or  , Alternation , meta-character</li>
+<li>' AB ' , Catenation</li>
+<li>' * ' many (&gt;=0) , Kleene closure , meta-character</li>
+<li>' + ' many (&gt;=1) , meta-character</li>
+<li>' ? ' optional (0 or 1)</li>
+<li>[ a-z A-Z ] (a ~ z , A ~ Z)</li>
+<li>'\d' (0 ~ 9)</li>
+<li>'^' (no character in front)</li>
+<li>'.' (any character)</li>
+<li>[ ^&quot;a\n ] , not , (all character except &quot; and a and \n)</li>
+</ul>
+</blockquote>
+<h3 id="finite-automata">Finite Automata</h3>
+<ul>
+<li>FA can be uesd to recognize the tokens specified by a regular expression</li>
+<li>transducer</li>
+<li>FA consists of :</li>
+</ul>
+<blockquote>
+<ol>
+<li>A finite set of states</li>
+<li>A finite vocabulary</li>
+<li>A set of transitions from one state to another</li>
+<li>A special state called the start state</li>
+<li>A subset of the states called the accepting or final state</li>
+</ol>
+</blockquote>
+<ul>
+<li>Deterministic(確定性的) Finite Automata ( DFA )</li>
+</ul>
+<blockquote>
+<ul>
+<li>only one transition from a state that have the same label<br>
+<img src='./assets/dfa.png'></li>
+<li>represented with transition table ( good )</li>
+<li>represented with explicit control ( noob )</li>
+<li>Nondeterministic(不確定性的) finite automaton ( NFA )</li>
+<li>multiple transitions from a state that have the same label<br>
+<img src='./assets/nfa.png'></li>
+<li>have transitions labeled with λ</li>
+</ul>
+</blockquote>
+<h3 id="regular-expression-is-equivalent-to-fa">Regular expression is equivalent to FA</h3>
+<ul>
+<li>雙向的，可以互轉</li>
+</ul>
+<blockquote>
+<h4 id="re-to-nfa">RE to NFA :</h4>
+<ol>
+<li>A|B <br>
+<img src='./assets/nfa_AorB.png'></li>
+<li>AB <br>
+<img src='./assets/nfa_AB.png'></li>
+<li>A* <br>
+<img src='./assets/nfa_A_star.png'></li>
+</ol>
+<h4 id="nfa-to-dfa">NFA to DFA :</h4>
+<ul>
+<li>subset construction algorithm <br>
+<img src='./assets/nfa_to_dfa_1.png'> <br>
+<img src='./assets/nfa_to_dfa_2.png'></li>
+</ul>
+</blockquote>
+<h3 id="important-notes">IMPORTANT NOTES</h3>
+<blockquote>
+<h4 id="dfanfa-are-not-capable-of-remembering-the-occurrences-of-symbols">DFA/NFA are not capable of remembering the occurrences of symbols</h4>
+<ul>
+<li>A<sub>n</sub>B<sub>n</sub> only can represented by CFM</li>
+</ul>
+<h4 id="context-free-grammer-is-more-powerful-than-regular-expression">Context-free grammer is more powerful than regular expression</h4>
+<ul>
+<li>RE -&gt; FA ( low level )</li>
+<li>CFM -&gt; Pushdown Automata ( high level )</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="parser">Parser</h2>
+<ul>
+<li>parser 會分析語法是否符合定義</li>
+<li>分析完成後會建成abstract syntax tree(AST)</li>
+<li>a set of productions( rewriting rules )</li>
+</ul>
+<blockquote>
+<h3 id="context-free-grammer">Context-free grammer</h3>
+<ul>
+<li>不會被前後文影響的改寫規則</li>
+<li>ex : Recursive descent (LL type parser)</li>
+</ul>
+<h3 id="context-sensitive-grammer">Context-sensitive grammer</h3>
+<ul>
+<li>會被前後文影響的改寫規則</li>
+</ul>
+<h3 id="two-grammer-symbols">Two Grammer symbols</h3>
+<blockquote>
+<h4 id="terminaltoken-cannot-be-rewritten">terminal(token) : cannot be rewritten</h4>
+<h4 id="non-terminal-can-be-rewritten">non-terminal : can be rewritten</h4>
+</blockquote>
+<h3 id="special-symbol">Special symbol</h3>
+<blockquote>
+<h4 id="prog-start-symbol-non-terminal">Prog (start-symbol , non-terminal)</h4>
+<h4 id="empty-or-null-string">λ (empty or null string)</h4>
+<h4 id="end-of-input-stream">$ (end of input stream)</h4>
+<h4 id="ts.peek-lookahead">ts.peek (lookahead)</h4>
+</blockquote>
+<h3 id="abstract-syntax-tree">Abstract Syntax Tree</h3>
+<ul>
+<li>用來表示一個program經過語法分析的中間產物</li>
+<li>also create symbol table that record all ID and their type in AST</li>
+</ul>
+</blockquote>
+<h2 id="type-checker">Type checker</h2>
+<ul>
+<li>type checker會檢查(AST code)語意(semantics)是否有錯誤</li>
+<li>ex : 未宣告就用、浮點數丟給字串...s</li>
+</ul>
+<h2 id="translator">Translator</h2>
+<ul>
+<li>translate AST code to IR code</li>
+</ul>
+<h2 id="optimizer">Optimizer</h2>
+<ul>
+<li>improve IR code's performance</li>
+</ul>
+<h2 id="code-generator">Code generator</h2>
+<ul>
+<li>mapping IR code or AST into target code ( assembly code )</li>
+</ul>
+
+    </body>
+</html>
+            
