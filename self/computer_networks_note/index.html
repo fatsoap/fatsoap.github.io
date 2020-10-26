@@ -423,6 +423,86 @@ td, h1, h2, h3, h4, h5, p, ul, ol, li {
 <li>geosynchronous versus low-earth-orbit satellites (LEOS低軌衛星)</li>
 </ul>
 </blockquote>
+<h2 id="page-1-50-packet-delay">Page 1-50 Packet Delay</h2>
+<hr />
+<h3 id="processing-delay">Processing delay</h3>
+<ul>
+<li>check bit errors</li>
+<li>determine output link</li>
+</ul>
+<h3 id="queueing-delay">Queueing delay</h3>
+<ul>
+<li>waiting at buffer for transmission</li>
+<li>depends on congestion</li>
+</ul>
+<h3 id="transmission-delay">Transmission delay</h3>
+<ul>
+<li>R = link bandwidth(bps)</li>
+<li>L = packet length (bits)</li>
+<li>time to send bits into link = L/R</li>
+</ul>
+<h3 id="propagation-delay">Propagation delay</h3>
+<ul>
+<li>d = length of physical link</li>
+<li>s = propagation speed in medium(~2*10^8 m/sec)</li>
+<li>propagation delay = d/s</li>
+</ul>
+<h3 id="nodal-delay">Nodal delay (節點延遲)</h3>
+<ul>
+<li>d_nodal = d_proc + d_queue + d_trans + d_prop</li>
+</ul>
+<h3 id="traffic-intensity">Traffic Intensity</h3>
+<ul>
+<li>R = link bandwidth (bps)</li>
+<li>L = packet length (bits)</li>
+<li>a = average packet arrival rate</li>
+<li>L * a = average bit arrival rate</li>
+<li>traffic intensity  I = ( L * a ) / R</li>
+<li>I &lt; 1 delay small</li>
+<li>I -&gt; 1 delay become large</li>
+<li>I &gt; 1 delay infinite , packet loss</li>
+</ul>
+<h2 id="page-1-60-protocol-layers">Page 1-60 Protocol Layers</h2>
+<hr />
+<h3 id="layers">Layers</h3>
+<ol>
+<li>application</li>
+</ol>
+<ul>
+<li>supporting network applications : FTP, STMP, HTTP</li>
+</ul>
+<ol start="2">
+<li>transport</li>
+</ol>
+<ul>
+<li>host-host data transfer : TCP, UDP</li>
+</ul>
+<ol start="3">
+<li>network</li>
+</ol>
+<ul>
+<li>routing of datagrams from source to destination : IP, routing protocols</li>
+</ul>
+<ol start="4">
+<li>link</li>
+</ol>
+<ul>
+<li>data transfer between neighboring  network elements : PPP, Ethernet</li>
+</ul>
+<ol start="5">
+<li>physical</li>
+</ol>
+<ul>
+<li>bits “on the wire”</li>
+</ul>
+<h3 id="header">Header</h3>
+<ul>
+<li>message (application Message) : content</li>
+<li>segment (transport header) : addressing reliability check info</li>
+<li>datagram (network header) : source &amp; destination IP</li>
+<li>frame (link header) : source &amp; destination network-card address</li>
+</ul>
+<img src="./assets/1-68.PNG" />
 
     </body>
 </html>

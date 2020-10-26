@@ -224,12 +224,56 @@ Streaming media(music, video) , DNS , telephony(skype)
 >* geosynchronous versus low-earth-orbit satellites (LEOS低軌衛星)
 
 
+## Page 1-50 Packet Delay
+---
+### Processing delay
+* check bit errors
+* determine output link 
+### Queueing delay
+* waiting at buffer for transmission 
+* depends on congestion
+### Transmission delay 
+* R = link bandwidth(bps)
+* L = packet length (bits)
+* time to send bits into link = L/R 
+### Propagation delay 
+* d = length of physical link 
+* s = propagation speed in medium(~2*10^8 m/sec)
+* propagation delay = d/s
 
+### Nodal delay (節點延遲)
+* d_nodal = d_proc + d_queue + d_trans + d_prop
 
+### Traffic Intensity
+* R = link bandwidth (bps)
+* L = packet length (bits)
+* a = average packet arrival rate
+* L * a = average bit arrival rate 
+* traffic intensity  I = ( L * a ) / R 
+* I < 1 delay small
+* I -> 1 delay become large
+* I > 1 delay infinite , packet loss
 
+## Page 1-60 Protocol Layers
+---
+### Layers
+1. application
+* supporting network applications : FTP, STMP, HTTP
+2. transport
+* host-host data transfer : TCP, UDP
+3. network
+* routing of datagrams from source to destination : IP, routing protocols
+4. link
+* data transfer between neighboring  network elements : PPP, Ethernet
+5. physical 
+* bits “on the wire”
+### Header
+* message (application Message) : content
+* segment (transport header) : addressing reliability check info
+* datagram (network header) : source & destination IP 
+* frame (link header) : source & destination network-card address
 
-
-
+<img src="./assets/1-68.PNG" />
 
 
 
