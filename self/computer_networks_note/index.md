@@ -71,7 +71,7 @@ Router
 ### Goal : data transfer between end systems
 #### TCP service (Transmission Control Protocol)
 1. handshaking(建連線) : call and setup (prepare for) data transfer ahead of time
-2. reliable , in ordered byte stream data transfer
+2. reliable , in ordered<b> byte stream </b> data transfer
 * loss: acknowledgements and retransmissions(確認收到不然重新傳送)
 3. flow control (流量控制)
 * sender won’t overwhelm receiver
@@ -82,9 +82,10 @@ Router
 ---
 ### Goal : data transfer between end systems
 #### UDP (User Datagram Protocol) connectionless service
-1. unreliable data transfer (可能掉封包)
-2. no flow control (沒有流量控制)
-3. no congestion control (沒有網路擁擠控制)
+1. transfer with <b>packets</b>
+2. unreliable data transfer (可能掉封包)
+3. no flow control (沒有流量控制)
+4. no congestion control (沒有網路擁擠控制)
 
 ## Page 1-12 & 1-13 Summary
 ---
@@ -515,4 +516,81 @@ eg, KaZaA (非標準)
 
 <img src="./assets/2-94.PNG" /><br>
 
+## Page 2-98 Socket
+---
+* socket :
+> a host-local, application-created, OS-controlled interface (a “door”) into which <br>
+> application process can both send and receive messages to/from another application process
+* use TCP (bytes stream)
+> * Client must contact server : server process must first be running
+> * Client contacts server by IP address, port number of server process
+> * When contacted by client : server TCP creates new socket 
+* use UDP (packets)
+>* no “connection” between client and server
+>* no handshaking
+>* sender put IP address and port in each packet
+>* server must extract IP address, port of sender from received packet
+>* data may be received out of order, or lost
+
+# Chapter 3 Transport Layer
+---
+## Multiplexing/demultiplexing
+* Multiplexing 選擇往下送的socket
+* Demultiplexing 選擇往上送的socket(根據port)
+* Both network layer need IP address
+### UDP 
+* UDP socket : 需要source port & destination port , 可共用
+* UDP check sum to detect error
+* how to recover from errors:
+> * acknowledgements (ACKs): receiver  tells sender that packet is OK
+> * negative acknowledgements (NAKs): receiver tells sender that packet is errors
+
+
+### Reliable data transfer
+1. seq num (封包座號) 2. ACK(已接收成功) 3. check sum(封包完整) 4. timeout(超時)<br>
+<img src="./assets/3-22.PNG" /><br>
+<img src="./assets/3-37.PNG" /><br>
+#### no pipeline RDT
+<img src="./assets/3-40.PNG" /><br>
+####  pipeline RDT
+<img src="./assets/3-43.PNG" /><br>
+#### Go-Back-N (pipeline)
+* ACK(n) : 小於等於n的封包都已經收到
+* 一個timer : timeout 就重傳，n+1 ~ n+N
+#### Selective repeat (pipeline)
+* ACK(n) : 收到編號等於n的封包
+* 多個timer : timeout(n) 就重傳，n
+
+### TCP
+* TCP socket: 需要source port,IP & destination port,IP ,不可共用
+1. point-to-point:
+2. reliable, in-order byte stream:
+3. pipelined:
+* TCP congestion and flow control set window size<br>
+4. send & receive buffers
+5. full duplex data:
+* 雙向的傳送<br>
+* MSS: maximum segment size<br>
+6. connection-oriented: 
+* handshaking <br>
+7. flow controlled:
+* sender will not overwhelm receiver<br>
+#### segment 
+
+<img src="./assets/3-55.PNG" /><br>
+
+#### trans
+
+<img src="./assets/3-56.PNG" /><br>
+
+#### timeout : SampleRTT 經常去測量RTT
+
+<img src="./assets/3-58.PNG" /><br>
+
+<img src="./assets/3-60.PNG" /><br>
+
+#### TCP reliable data transfer
+* one timer
+* pipeline segment
+* Cumulative acks
 

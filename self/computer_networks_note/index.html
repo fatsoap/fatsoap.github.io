@@ -124,7 +124,7 @@ td, h1, h2, h3, h4, h5, p, ul, ol, li {
 <h4 id="tcp-service-transmission-control-protocol">TCP service (Transmission Control Protocol)</h4>
 <ol>
 <li>handshaking(建連線) : call and setup (prepare for) data transfer ahead of time</li>
-<li>reliable , in ordered byte stream data transfer</li>
+<li>reliable , in ordered<b> byte stream </b> data transfer</li>
 </ol>
 <ul>
 <li>loss: acknowledgements and retransmissions(確認收到不然重新傳送)</li>
@@ -146,6 +146,7 @@ td, h1, h2, h3, h4, h5, p, ul, ol, li {
 <h3 id="goal-data-transfer-between-end-systems-1">Goal : data transfer between end systems</h3>
 <h4 id="udp-user-datagram-protocol-connectionless-service">UDP (User Datagram Protocol) connectionless service</h4>
 <ol>
+<li>transfer with <b>packets</b></li>
 <li>unreliable data transfer (可能掉封包)</li>
 <li>no flow control (沒有流量控制)</li>
 <li>no congestion control (沒有網路擁擠控制)</li>
@@ -885,6 +886,122 @@ eg, HTTP, SMTP (標準)</li>
 </ul>
 </blockquote>
 <p><img src="./assets/2-94.PNG" /><br></p>
+<h2 id="page-2-98-socket">Page 2-98 Socket</h2>
+<hr />
+<ul>
+<li>socket :</li>
+</ul>
+<blockquote>
+<p>a host-local, application-created, OS-controlled interface (a “door”) into which <br>
+application process can both send and receive messages to/from another application process</p>
+</blockquote>
+<ul>
+<li>use TCP (bytes stream)</li>
+</ul>
+<blockquote>
+<ul>
+<li>Client must contact server : server process must first be running</li>
+<li>Client contacts server by IP address, port number of server process</li>
+<li>When contacted by client : server TCP creates new socket</li>
+</ul>
+</blockquote>
+<ul>
+<li>use UDP (packets)</li>
+</ul>
+<blockquote>
+<ul>
+<li>no “connection” between client and server</li>
+<li>no handshaking</li>
+<li>sender put IP address and port in each packet</li>
+<li>server must extract IP address, port of sender from received packet</li>
+<li>data may be received out of order, or lost</li>
+</ul>
+</blockquote>
+<h1 id="chapter-3-transport-layer">Chapter 3 Transport Layer</h1>
+<hr />
+<h2 id="multiplexingdemultiplexing">Multiplexing/demultiplexing</h2>
+<ul>
+<li>Multiplexing 選擇往下送的socket</li>
+<li>Demultiplexing 選擇往上送的socket(根據port)</li>
+<li>Both network layer need IP address</li>
+</ul>
+<h3 id="udp-1">UDP</h3>
+<ul>
+<li>UDP socket : 需要source port &amp; destination port , 可共用</li>
+<li>UDP check sum to detect error</li>
+<li>how to recover from errors:</li>
+</ul>
+<blockquote>
+<ul>
+<li>acknowledgements (ACKs): receiver  tells sender that packet is OK</li>
+<li>negative acknowledgements (NAKs): receiver tells sender that packet is errors</li>
+</ul>
+</blockquote>
+<h3 id="reliable-data-transfer">Reliable data transfer</h3>
+<ol>
+<li>seq num (封包座號) 2. ACK(已接收成功) 3. check sum(封包完整) 4. timeout(超時)<br>
+<img src="./assets/3-22.PNG" /><br>
+<img src="./assets/3-37.PNG" /><br></li>
+</ol>
+<h4 id="no-pipeline-rdt">no pipeline RDT</h4>
+<p><img src="./assets/3-40.PNG" /><br></p>
+<h4 id="pipeline-rdt">pipeline RDT</h4>
+<p><img src="./assets/3-43.PNG" /><br></p>
+<h4 id="go-back-n-pipeline">Go-Back-N (pipeline)</h4>
+<ul>
+<li>ACK(n) : 小於等於n的封包都已經收到</li>
+<li>一個timer : timeout 就重傳，n+1 ~ n+N</li>
+</ul>
+<h4 id="selective-repeat-pipeline">Selective repeat (pipeline)</h4>
+<ul>
+<li>ACK(n) : 收到編號等於n的封包</li>
+<li>多個timer : timeout(n) 就重傳，n</li>
+</ul>
+<h3 id="tcp-1">TCP</h3>
+<ul>
+<li>TCP socket: 需要source port,IP &amp; destination port,IP ,不可共用</li>
+</ul>
+<ol>
+<li>point-to-point:</li>
+<li>reliable, in-order byte stream:</li>
+<li>pipelined:</li>
+</ol>
+<ul>
+<li>TCP congestion and flow control set window size<br></li>
+</ul>
+<ol start="4">
+<li>send &amp; receive buffers</li>
+<li>full duplex data:</li>
+</ol>
+<ul>
+<li>雙向的傳送<br></li>
+<li>MSS: maximum segment size<br></li>
+</ul>
+<ol start="6">
+<li>connection-oriented:</li>
+</ol>
+<ul>
+<li>handshaking <br></li>
+</ul>
+<ol start="7">
+<li>flow controlled:</li>
+</ol>
+<ul>
+<li>sender will not overwhelm receiver<br></li>
+</ul>
+<h4 id="segment">segment</h4>
+<p><img src="./assets/3-55.PNG" /><br></p>
+<h4 id="trans">trans</h4>
+<p><img src="./assets/3-56.PNG" /><br></p>
+<h4 id="timeout-samplertt-rtt">timeout : SampleRTT 經常去測量RTT</h4>
+<p><img src="./assets/3-58.PNG" /><br></p>
+<p><img src="./assets/3-60.PNG" /><br></p>
+<h4 id="tcp-reliable-data-transfer">TCP reliable data transfer</h4>
+<ul>
+<li>one timer</li>
+<li>pipeline segment</li>
+<li>Cumulative acks</li>
+</ul>
 
     </body>
 </html>
