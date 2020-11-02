@@ -464,6 +464,10 @@ td, h1, h2, h3, h4, h5, p, ul, ol, li {
 </ul>
 <h2 id="page-1-60-protocol-layers">Page 1-60 Protocol Layers</h2>
 <hr />
+<h3 id="encapsulation">Encapsulation</h3>
+<ul>
+<li>往下層送的行為</li>
+</ul>
 <h3 id="layers">Layers</h3>
 <ol>
 <li>application</li>
@@ -503,6 +507,384 @@ td, h1, h2, h3, h4, h5, p, ul, ol, li {
 <li>frame (link header) : source &amp; destination network-card address</li>
 </ul>
 <img src="./assets/1-68.PNG" />
+<h1 id="chapter-2-application-layer">Chapter 2 Application Layer</h1>
+<h2 id="page-2-2-client-server-archicture">Page 2-2 Client-server archicture</h2>
+<hr />
+<h3 id="server">server:</h3>
+<ul>
+<li>always-on host</li>
+<li>permanent IP address 固定IP</li>
+<li>server farms for scaling 大規模要建置server farm</li>
+</ul>
+<h3 id="clients">clients:</h3>
+<ul>
+<li>communicate with server</li>
+<li>may be intermittently connected 可暫時連結</li>
+<li>may have dynamic IP addresses 可動態IP</li>
+<li>do not communicate directly with each other  客戶之間要由server轉介</li>
+</ul>
+<h2 id="page-2-9-pure-p2p-architecture">Page 2-9 Pure P2P architecture</h2>
+<hr />
+<ul>
+<li>no always on server 沒有server</li>
+<li>arbitrary end systems directly communicate 直接溝通</li>
+<li>peers are intermittently connected and change IP addresses 可動態IP、暫時連結</li>
+<li>example: Gnutella (P2P代表之一)</li>
+<li>優 : Highly scalable 可以容易擴充規模</li>
+<li>缺 : But difficult to manage 難以維護</li>
+</ul>
+<h2 id="page-2-10-hybrid-of-client-server-and-p2p">Page 2-10 Hybrid of client-server and P2P (混合式)</h2>
+<hr />
+<h3 id="napster">Napster</h3>
+<ul>
+<li>File transfer P2P (傳檔案不經過server)</li>
+<li>File search centralized: (server負責看誰有檔案、分配)</li>
+</ul>
+<blockquote>
+<ul>
+<li>Peers register content at central server</li>
+<li>Peers query same central server to locate content</li>
+</ul>
+</blockquote>
+<h3 id="instant-messaging">Instant messaging</h3>
+<ul>
+<li>Chatting between two users is P2P (client P2P)</li>
+<li>Presence detection/location centralized: (server)</li>
+</ul>
+<blockquote>
+<ul>
+<li>User registers its IP address with central server when it comes online</li>
+<li>User contacts central server to find IP addresses of buddies</li>
+</ul>
+</blockquote>
+<h2 id="page-2-11-processes-communicating">Page 2-11 Processes communicating</h2>
+<hr />
+<h3 id="same-host">Same host</h3>
+<ul>
+<li>two processes communicate using  inter-process communication (defined by OS).</li>
+</ul>
+<h3 id="dif-host">Dif host</h3>
+<ul>
+<li>processes in different hosts communicate by exchanging messages</li>
+</ul>
+<h3 id="client-process">Client process:</h3>
+<ul>
+<li>process that initiates communication</li>
+</ul>
+<h3 id="server-process">Server process:</h3>
+<ul>
+<li>process that waits to be contacted</li>
+</ul>
+<h3 id="p2p">P2P</h3>
+<ul>
+<li>applications with P2P architectures have client processes &amp; server processes</li>
+</ul>
+<h2 id="page-2-12-processes-communicating-across-network">Page 2-12 Processes communicating across network</h2>
+<hr />
+<h3 id="socket">Socket</h3>
+<ul>
+<li>process sends/receives messages to/from its socket</li>
+<li>API : choose transport protocol, then a few parameters (IP, port ...)</li>
+</ul>
+<h3 id="addressing-processes">Addressing processes</h3>
+<ul>
+<li>For a process to receive messages, it must have an identifier</li>
+</ul>
+<blockquote>
+<ol>
+<li>host has a unique 32-bit IP address</li>
+<li>port (16-bit) numbers associated with the process on the host</li>
+</ol>
+</blockquote>
+<ul>
+<li>IP代表host的位置 、 port 代表host全部的process中的哪一個</li>
+</ul>
+<h3 id="app-layer-protocol-defines">App-layer protocol defines</h3>
+<ul>
+<li>Types of messages : req or res</li>
+<li>Syntax of message : 格式，哪個位置代表什麼訊息</li>
+<li>Rules for when and how processes send &amp; respond : 回應的規則</li>
+</ul>
+<h4 id="public-domain-protocols">Public-domain protocols:</h4>
+<ul>
+<li>defined in RFCs (定義標準組織)</li>
+<li>allows for interoperability(互通性、相容性)
+eg, HTTP, SMTP (標準)</li>
+</ul>
+<h4 id="proprietary-protocols">Proprietary protocols:</h4>
+<p>eg, KaZaA (非標準)</p>
+<h2 id="page-2-15-what-transport-service-does-an-app-need">Page 2-15 What transport service does an app need</h2>
+<hr />
+<h3 id="data-loss">Data loss</h3>
+<ul>
+<li>some apps (e.g., audio) can tolerate some loss</li>
+<li>other apps (e.g., file transfer, telnet) require 100% reliable data transfer</li>
+</ul>
+<h3 id="timing">Timing</h3>
+<ul>
+<li>延遲</li>
+</ul>
+<h3 id="bandwidth">Bandwidth</h3>
+<ul>
+<li>multimedia may require minimum amount of bandwidth to be “effective”</li>
+</ul>
+<h2 id="page-2-17-internet-transport-protocols-services">Page 2-17 Internet transport protocols services</h2>
+<h3 id="tcp">TCP</h3>
+<ul>
+<li>connection-oriented: 使用前要先建連線</li>
+<li>reliable transport : 可靠、不能掉封包</li>
+<li>flow control: sender won’t overwhelm receiver</li>
+<li>congestion control: 擁擠控制，掉封包就放慢</li>
+<li>不保證傳送的時間、速度、頻寬</li>
+</ul>
+<h3 id="udp">UDP</h3>
+<ul>
+<li>不可靠的資料傳送</li>
+<li>沒有提供 : 建連線、流量控制、擁擠控制、傳送時間、速度、頻寬</li>
+</ul>
+<h2 id="page-2-20-web-and-http">Page 2-20 Web and HTTP</h2>
+<h3 id="web-page">Web Page</h3>
+<ul>
+<li>base HTML-file</li>
+<li>many objects</li>
+<li>URL (Uniform Resource Locators)</li>
+</ul>
+<h3 id="http-hypertext-transfer-protocol">HTTP : hypertext transfer protocol</h3>
+<ul>
+<li>Web’s application layer protocol</li>
+<li>client/server model</li>
+<li>used TCP :</li>
+</ul>
+<blockquote>
+<ol>
+<li>client initiates TCP connection (creates socket) to server, port 80</li>
+<li>server accepts TCP connection from client</li>
+<li>send messages</li>
+</ol>
+</blockquote>
+<ul>
+<li>stateless : 不會記之前的req</li>
+<li>RTT : 小型回應持間</li>
+</ul>
+<img src="./assets/2-26.PNG" />
+<ul>
+<li>Nonpersistent HTTP</li>
+</ul>
+<blockquote>
+<ul>
+<li>At most one object is sent over a TCP connection.</li>
+<li>一個TCP連線只能傳送一個object，送完就關閉連線</li>
+<li>2 RTTs per object :一個建連線一個要求object</li>
+</ul>
+</blockquote>
+<ul>
+<li>Persistent HTTP</li>
+</ul>
+<blockquote>
+<ul>
+<li>一個TCP 連線可以傳送多個objects</li>
+</ul>
+<ol>
+<li>without pipelining : one RTT for each object</li>
+<li>with pipelining : 幾乎只要one RTT</li>
+</ol>
+</blockquote>
+<ul>
+<li>HTTP request message</li>
+</ul>
+<p><img src="./assets/2-28.PNG" /><br>
+<img src="./assets/2-29.PNG" /><br>
+<img src="./assets/2-30.PNG" /><br></p>
+<ul>
+<li>HTTP response message</li>
+</ul>
+<p><img src="./assets/2-33.PNG" /><br>
+<img src="./assets/2-34.PNG" /><br></p>
+<h2 id="page-2-37-user-server-state-cookies">Page 2-37 User-server state: cookies</h2>
+<ul>
+<li>Four components of cookie technology:</li>
+</ul>
+<ol>
+<li>cookie header line in the HTTP response message</li>
+<li>cookie header line in HTTP request message</li>
+<li>cookie file kept on user’s browser</li>
+<li>back-end database at Web site</li>
+</ol>
+<ul>
+<li>What cookies can bring:</li>
+</ul>
+<ol>
+<li>authorization</li>
+<li>shopping carts</li>
+<li>recommendations</li>
+<li>user session state (Web e-mail)</li>
+</ol>
+<h2 id="page-2-40-web-caches-proxy-server">Page 2-40 Web caches (proxy server)</h2>
+<hr />
+<ul>
+<li>Proxy server : 暫存伺服器</li>
+</ul>
+<blockquote>
+<ul>
+<li>client 連到proxy server再由proxy server 決定要不要連到主伺服器</li>
+</ul>
+</blockquote>
+<ul>
+<li>好處:</li>
+</ul>
+<blockquote>
+<ol>
+<li>reduce response time 縮短回應時間</li>
+<li>reduce traffic 減少流量、分散流量</li>
+</ol>
+</blockquote>
+<h4 id="cach-example">Cach example</h4>
+<p><img src="./assets/2-42.PNG" /><br>
+<img src="./assets/2-43.PNG" /><br>
+<img src="./assets/2-44.PNG" /><br></p>
+<h2 id="page-2-47-ftp-the-file-transfer-protocol">Page 2-47 FTP : the file transfer protocol</h2>
+<hr />
+<ul>
+<li>FTP client contacts FTP server at port 21， 以TCP為底</li>
+<li>Will maintains “state”: current directory, earlier authentication</li>
+<li>Total 2 connection :</li>
+</ul>
+<blockquote>
+<ul>
+<li>control connection (port21) (also called “out of band”)</li>
+</ul>
+<ol>
+<li>傳送 : username, password, file transfer command</li>
+</ol>
+<ul>
+<li>data connection (port20)<br></li>
+</ul>
+<ol>
+<li>server open a TCP data connection when receive file transfer command</li>
+<li>傳送檔案</li>
+</ol>
+</blockquote>
+<p><img src="./assets/2-49.PNG" /><br></p>
+<h2 id="page-2-51-electronic-mail">Page 2-51 Electronic Mail</h2>
+<hr />
+<h3 id="user-agent">User Agent</h3>
+<ul>
+<li>read mail</li>
+</ul>
+<h3 id="mail-servers">Mail Servers</h3>
+<ul>
+<li>mailbox contains incoming messages for user</li>
+<li>message queue of outgoing mail messages</li>
+</ul>
+<h3 id="smtp">SMTP</h3>
+<ul>
+<li>Simple Mail Transfer Protocol (port25)</li>
+<li>delivery/storage to receiver’s server</li>
+<li>use TCP</li>
+<li>three phases:</li>
+</ul>
+<ol>
+<li>hand shaking</li>
+<li>transfer messages</li>
+<li>close</li>
+</ol>
+<ul>
+<li>command/response interaction</li>
+</ul>
+<ol>
+<li>commands: ASCII text</li>
+<li>response: status code and phrase</li>
+</ol>
+<h3 id="mail-access-protocol">Mail access protocol</h3>
+<ul>
+<li>retrieval from server</li>
+</ul>
+<ol>
+<li>POP3: Post Office Protocol, version 3 [RFC 1939]</li>
+</ol>
+<blockquote>
+<ul>
+<li>authorization (agent &lt;--&gt; server) and download</li>
+<li>將mail存到自己的電腦裡做處理</li>
+</ul>
+<ol>
+<li>Client opens a TCP connection to the mail server on port 110</li>
+<li>authorization phase : 輸入帳密</li>
+<li>transaction phase : 輸入指令</li>
+<li>update phase : 更新(刪除剛剛選的信)
+2. IMAP: Internet Mail Access Protocol [RFC 2060]</li>
+</ol>
+<ul>
+<li>mail在receiver server裡面處理
+3. HTTP: Hotmail , Yahoo! Mail, etc.</li>
+</ul>
+</blockquote>
+<p><img src="./assets/2-63.PNG" /><br></p>
+<h2 id="page-2-67-dns-domain-name-system">Page 2-67 DNS: Domain Name System</h2>
+<hr />
+<ul>
+<li>A distributed database</li>
+<li>An application-layer protocol</li>
+<li>Hostname to IP address translation</li>
+<li>Host aliasing :</li>
+</ul>
+<blockquote>
+<ol>
+<li>Canonical : Relay1.west-coast.enterprise.com</li>
+<li>alias names : www,enterprise,com</li>
+</ol>
+</blockquote>
+<ul>
+<li>Distributed, Hierarchical Database</li>
+</ul>
+<blockquote>
+<ol>
+<li>root name servers</li>
+<li>top level name servers ( .com .org .net .edu .jp .uk)</li>
+<li>authoritative name servers:</li>
+<li>local name servers: (大公司、學校)</li>
+</ol>
+</blockquote>
+<p><img src="./assets/2-70.PNG" /><br></p>
+<h3 id="recursive-queries">Recursive queries</h3>
+<ul>
+<li>recursive query</li>
+</ul>
+<blockquote>
+<p>查一個，沒有就叫他幫忙查</p>
+</blockquote>
+<ul>
+<li>iterated query</li>
+</ul>
+<blockquote>
+<p>查一個，沒有就自己找下一個</p>
+</blockquote>
+<h2 id="page-2-88-p2p-file-sharing">Page 2-88 P2P file sharing</h2>
+<hr />
+<ul>
+<li>All peers are servers = highly scalable!</li>
+<li>Query flooding: 廣播看誰有檔案</li>
+</ul>
+<blockquote>
+<ul>
+<li>overlay network: graph</li>
+<li>edge between peer X and Y have a TCP connection</li>
+<li>Peer joining</li>
+</ul>
+<ol>
+<li>find some other peer in network: use list of candidate peers</li>
+<li>attempts to make TCP with peers on list until connection setup</li>
+</ol>
+</blockquote>
+<ul>
+<li>Exploiting heterogeneity: KaZaA (一種P2P)</li>
+</ul>
+<blockquote>
+<ul>
+<li>use hash to avoid same file content</li>
+</ul>
+</blockquote>
+<p><img src="./assets/2-94.PNG" /><br></p>
 
     </body>
 </html>

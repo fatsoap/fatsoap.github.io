@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="MarkdownViewer++" />
+        <title>index.md</title>
+        <style type="text/css">
+            
+/* Avoid page breaks inside the most common attributes, especially for exports (i.e. PDF) */
+td, h1, h2, h3, h4, h5, p, ul, ol, li {
+    page-break-inside: avoid; 
+}
+
+        </style>
+      </head>
+    <body>
+        <h1 id="prime">prime</h1>
+<code>
+#define N 10000000
+	static bool sieve[N] = { 1, 1 };
+    int SQRT = sqrt(N);
+    for (int i = 2; i <= SQRT; i++)
+        if (!sieve[i])
+            for (int j = i << 1; j < N; j += i)
+                sieve[j] = true;
+</code>
+
+    </body>
+</html>
+            

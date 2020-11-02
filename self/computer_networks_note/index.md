@@ -256,6 +256,8 @@ Streaming media(music, video) , DNS , telephony(skype)
 
 ## Page 1-60 Protocol Layers
 ---
+### Encapsulation
+* 往下層送的行為
 ### Layers
 1. application
 * supporting network applications : FTP, STMP, HTTP
@@ -275,9 +277,242 @@ Streaming media(music, video) , DNS , telephony(skype)
 
 <img src="./assets/1-68.PNG" />
 
+# Chapter 2 Application Layer
+## Page 2-2 Client-server archicture
+---
+### server: 
+* always-on host 
+* permanent IP address 固定IP
+* server farms for scaling 大規模要建置server farm
+### clients:
+* communicate with server
+* may be intermittently connected 可暫時連結
+* may have dynamic IP addresses 可動態IP
+* do not communicate directly with each other  客戶之間要由server轉介
+
+## Page 2-9 Pure P2P architecture
+---
+* no always on server 沒有server
+* arbitrary end systems directly communicate 直接溝通
+* peers are intermittently connected and change IP addresses 可動態IP、暫時連結
+* example: Gnutella (P2P代表之一)
+* 優 : Highly scalable 可以容易擴充規模
+* 缺 : But difficult to manage 難以維護
+
+## Page 2-10 Hybrid of client-server and P2P (混合式)
+---
+### Napster
+* File transfer P2P (傳檔案不經過server)
+* File search centralized: (server負責看誰有檔案、分配)
+> * Peers register content at central server
+> * Peers query same central server to locate content
+### Instant messaging
+* Chatting between two users is P2P (client P2P)
+* Presence detection/location centralized: (server)
+> * User registers its IP address with central server when it comes online
+> * User contacts central server to find IP addresses of buddies
+
+## Page 2-11 Processes communicating
+---
+### Same host
+* two processes communicate using  inter-process communication (defined by OS).
+### Dif host
+* processes in different hosts communicate by exchanging messages
+### Client process:
+* process that initiates communication
+### Server process:
+* process that waits to be contacted
+### P2P
+* applications with P2P architectures have client processes & server processes
+
+## Page 2-12 Processes communicating across network
+---
+### Socket
+* process sends/receives messages to/from its socket
+* API : choose transport protocol, then a few parameters (IP, port ...)
+### Addressing processes
+* For a process to receive messages, it must have an identifier
+> 1. host has a unique 32-bit IP address
+> 2. port (16-bit) numbers associated with the process on the host
+* IP代表host的位置 、 port 代表host全部的process中的哪一個
+### App-layer protocol defines
+* Types of messages : req or res 
+* Syntax of message : 格式，哪個位置代表什麼訊息
+* Rules for when and how processes send & respond : 回應的規則
+#### Public-domain protocols:
+* defined in RFCs (定義標準組織)
+* allows for interoperability(互通性、相容性)
+eg, HTTP, SMTP (標準)
+#### Proprietary protocols:
+eg, KaZaA (非標準)
+
+## Page 2-15 What transport service does an app need
+---
+### Data loss
+* some apps (e.g., audio) can tolerate some loss
+* other apps (e.g., file transfer, telnet) require 100% reliable data transfer 
+### Timing
+* 延遲
+### Bandwidth
+* multimedia may require minimum amount of bandwidth to be “effective”
+
+## Page 2-17 Internet transport protocols services
+### TCP 
+* connection-oriented: 使用前要先建連線
+* reliable transport : 可靠、不能掉封包
+* flow control: sender won’t overwhelm receiver 
+* congestion control: 擁擠控制，掉封包就放慢
+* 不保證傳送的時間、速度、頻寬
+### UDP
+* 不可靠的資料傳送
+* 沒有提供 : 建連線、流量控制、擁擠控制、傳送時間、速度、頻寬
+
+## Page 2-20 Web and HTTP
+### Web Page
+* base HTML-file 
+* many objects
+* URL (Uniform Resource Locators) 
+### HTTP : hypertext transfer protocol
+* Web’s application layer protocol
+* client/server model
+* used TCP :
+> 1. client initiates TCP connection (creates socket) to server, port 80
+> 2. server accepts TCP connection from client
+> 3. send messages
+* stateless : 不會記之前的req
+* RTT : 小型回應持間
+
+<img src="./assets/2-26.PNG" />
+
+* Nonpersistent HTTP
+> * At most one object is sent over a TCP connection.
+> * 一個TCP連線只能傳送一個object，送完就關閉連線
+> * 2 RTTs per object :一個建連線一個要求object
+* Persistent HTTP
+> * 一個TCP 連線可以傳送多個objects 
+> 1. without pipelining : one RTT for each object
+> 2. with pipelining : 幾乎只要one RTT
+
+* HTTP request message
+
+<img src="./assets/2-28.PNG" /><br>
+<img src="./assets/2-29.PNG" /><br>
+<img src="./assets/2-30.PNG" /><br>
+
+* HTTP response message
+
+<img src="./assets/2-33.PNG" /><br>
+<img src="./assets/2-34.PNG" /><br>
+
+## Page 2-37 User-server state: cookies
+* Four components of cookie technology:
+1. cookie header line in the HTTP response message
+2. cookie header line in HTTP request message
+3. cookie file kept on user’s browser
+4. back-end database at Web site
+* What cookies can bring:
+1. authorization
+2. shopping carts
+3. recommendations
+4. user session state (Web e-mail)
 
 
+## Page 2-40 Web caches (proxy server)
+---
+* Proxy server : 暫存伺服器
+> * client 連到proxy server再由proxy server 決定要不要連到主伺服器
+* 好處: 
+> 1. reduce response time 縮短回應時間
+> 2. reduce traffic 減少流量、分散流量
+
+#### Cach example
+
+<img src="./assets/2-42.PNG" /><br>
+<img src="./assets/2-43.PNG" /><br>
+<img src="./assets/2-44.PNG" /><br>
+
+## Page 2-47 FTP : the file transfer protocol
+---
+* FTP client contacts FTP server at port 21， 以TCP為底
+* Will maintains “state”: current directory, earlier authentication
+* Total 2 connection :
+> * control connection (port21) (also called “out of band”)
+> 1. 傳送 : username, password, file transfer command
+> * data connection (port20)<br>
+> 1. server open a TCP data connection when receive file transfer command
+> 2. 傳送檔案
+
+<img src="./assets/2-49.PNG" /><br>
+
+## Page 2-51 Electronic Mail
+---
+### User Agent
+* read mail
+### Mail Servers 
+* mailbox contains incoming messages for user
+* message queue of outgoing mail messages
+### SMTP 
+* Simple Mail Transfer Protocol (port25)
+* delivery/storage to receiver’s server
+* use TCP 
+* three phases:
+1. hand shaking
+2. transfer messages
+3. close
+* command/response interaction
+1. commands: ASCII text
+2. response: status code and phrase
+
+### Mail access protocol
+* retrieval from server
+1. POP3: Post Office Protocol, version 3 [RFC 1939]
+> * authorization (agent <--> server) and download 
+> * 將mail存到自己的電腦裡做處理
+> 1. Client opens a TCP connection to the mail server on port 110
+> 2. authorization phase : 輸入帳密
+> 3. transaction phase : 輸入指令
+> 4. update phase : 更新(刪除剛剛選的信)
+2. IMAP: Internet Mail Access Protocol [RFC 2060]
+> * mail在receiver server裡面處理
+3. HTTP: Hotmail , Yahoo! Mail, etc.
+
+<img src="./assets/2-63.PNG" /><br>
+
+## Page 2-67 DNS: Domain Name System
+---
+* A distributed database 
+* An application-layer protocol 
+* Hostname to IP address translation
+* Host aliasing :
+>1. Canonical : Relay1.west-coast.enterprise.com
+>2. alias names : www,enterprise,com
+* Distributed, Hierarchical Database
+>1. root name servers
+>2. top level name servers ( .com .org .net .edu .jp .uk)
+>3. authoritative name servers:
+>4. local name servers: (大公司、學校)
+
+<img src="./assets/2-70.PNG" /><br>
 
 
+### Recursive queries
+* recursive query
+> 查一個，沒有就叫他幫忙查
+* iterated query
+> 查一個，沒有就自己找下一個
+
+## Page 2-88 P2P file sharing
+---
+* All peers are servers = highly scalable!
+* Query flooding: 廣播看誰有檔案
+>* overlay network: graph
+>* edge between peer X and Y have a TCP connection
+>* Peer joining
+>1. find some other peer in network: use list of candidate peers
+>2. attempts to make TCP with peers on list until connection setup
+* Exploiting heterogeneity: KaZaA (一種P2P)
+>* use hash to avoid same file content
+
+<img src="./assets/2-94.PNG" /><br>
 
 

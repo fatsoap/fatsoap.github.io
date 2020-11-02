@@ -66,7 +66,7 @@ platform-dependent
 <img src='./assets/dfa.PNG'> 
 >> * represented with transition table ( good )
 >> * represented with explicit control ( noob )
->> * Nondeterministic(不確定性的) finite automaton ( NFA )
+> * Nondeterministic(不確定性的) finite automaton ( NFA )
 >> * multiple transitions from a state that have the same label<br>
 <img src='./assets/nfa.PNG'> 
 >> * have transitions labeled with λ 
