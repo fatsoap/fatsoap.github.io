@@ -546,7 +546,7 @@ eg, KaZaA (非標準)
 > * negative acknowledgements (NAKs): receiver tells sender that packet is errors
 
 
-### Reliable data transfer
+### Principles of  Reliable data transfer
 1. seq num (封包座號) 2. ACK(已接收成功) 3. check sum(封包完整) 4. timeout(超時)<br>
 <img src="./assets/3-22.PNG" /><br>
 <img src="./assets/3-37.PNG" /><br>
@@ -568,12 +568,13 @@ eg, KaZaA (非標準)
 3. pipelined:
 * TCP congestion and flow control set window size<br>
 4. send & receive buffers
-5. full duplex data:
+5. Cumulative acks
+6. full duplex data:
 * 雙向的傳送<br>
 * MSS: maximum segment size<br>
-6. connection-oriented: 
+7. connection-oriented: 
 * handshaking <br>
-7. flow controlled:
+8. flow controlled:
 * sender will not overwhelm receiver<br>
 #### segment 
 
@@ -593,4 +594,134 @@ eg, KaZaA (非標準)
 * one timer
 * pipeline segment
 * Cumulative acks
+
+#### Fast  Retransmit
+* Detect duplicate ACKs three times (沒有進展就重送)
+* faster than timeout 
+
+#### Flow control 
+* reciever advertises spare room by including value of RcvWindow in segments
+
+<img src="./assets/3-72.PNG" /><br>
+
+#### TCP Connection Management 
+
+<img src="./assets/3-76.PNG" /><br>
+
+<img src="./assets/3-77.PNG" /><br>
+
+<img src="./assets/3-78.PNG" /><br>
+
+<img src="./assets/3-79.PNG" /><br>
+
+* syn robbing : 送出很多syn傳送需求，server allocate 很多buffer，但是都是假的
+
+### Principles of Congestion Control
+---
+
+* too many sources, data, too fast for network to handle
+* End-end congestion control : TCP自己判斷
+1. delay , loss 很多
+* Network-assisted congestion control (Router判斷)
+1. router回饋給end system，告知傳送速度應該多少
+#### ATM ABR congestion control(非同步模式網路)
+* ABR: available bit rate , elastic service
+* RM (resource management) cells: 根據傳送的cell看是否擁擠
+> * NI bit: 不擁擠
+> * CI bit: 擁擠了
+### TCP Congestion Control
+---
+* 1 maximum segment size (MSS) 
+* CongWin
+
+<img src="./assets/3-92.PNG" /><br>
+
+* is congestion:
+1. loss event = timeout or 3 duplicate acks
+2. TCP sender reduces rate (CongWin) after loss event
+* solution :
+1. AIMD : 
+> * Additive-increase : CongWin每個RTT增加一個MSS
+> * multiplicative-decrease : loss CongWin就減一半
+
+2. slow start : CongWin收到一個ACK增加一個MSS
+3. Reaction to loss events :
+> * timeout : CongWin set to 1 MSS;
+> * 3 dup ACK : CongWin cut half;
+> * theshold = loss CongWin/2
+>> * congestion-avoidance phase : grows linearly when arrive threshold
+
+<img src="./assets/3-98.PNG" /><br>
+
+* Average throughput
+
+<img src="./assets/3-98.PNG" /><br>
+
+# Chapter 4 Network Layer
+---
+## forwarding: 
+* 選擇下一個router
+* 根據table(隨時會變)
+## routing
+* 找出起點到終點的路徑(最短路徑，隨時會變)
+## Connection setup
+
+## Network and transport layer connection service:
+* Network: between two hosts (IP)
+* Transport: between two processes (IP, PORT)
+
+## connection and connection-less service
+* Datagram network : connectionless service
+* VC network : connection service
+* Service: host-to-host (network layer)
+* No choice: 只能選用一種
+* in the core (在router)
+
+## Virtual circuits
+* 要先建connection
+* 每個packet都有VC ID，每經過router都會改變  (沒有IP因為路線已經建好了)
+* 保證一定速度、頻寬、loss、delay
+* 每個router都有forwarding table來maintain connection
+* 存每個connection可使用的資源
+* VC teardown 結束
+
+## Datagram networks (Internet)
+* no call setup
+* 每個封包都有紀錄起點&終點IP
+* 有多少頻寬就用多少，不保證速度、loss、delay
+* packets forwarded using destination host address
+
+<img src="./assets/4-18.PNG" /><br>
+
+## Router Architecture
+* 建table : routing algorithms/protocol (RIP, OSPF, BGP)
+* forwarding datagrams from incoming to outgoing link
+* switching farbic : 將查表後的封包轉到對應port的機器
+* goal: complete input output at ‘line speed’ (進來速度和出去一樣)
+
+### Input port
+<img src="./assets/4-22.PNG" /><br>
+
+#### Head-of-the-Line (HOL) blocking
+* input port queue 的第一個packet搶不到對應output port的位置，導致那個input port卡住
+
+#### Three types of switching fabrics
+1. via memory (packet寫入memory，再由目的端讀取)
+> * slow (need two memory access , cpoy packet)<br>
+2. via bus (input port廣播packet給每個output port，由output port決定要不要收)
+> * switching speed limited by bus bandwidth <br>
+3. via crossbar (棋盤式路線)
+> * 同時給同一個port還是會卡住
+
+### Output port
+
+<img src="./assets/4-27.PNG" /><br>
+
+* Buffering : 存太快進來的就先存近來 (可能會loss)
+* Scheduling discipline : schedule algorithm決定優先順序
+
+
+
+
+
 

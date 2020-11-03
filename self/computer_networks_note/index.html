@@ -937,7 +937,7 @@ application process can both send and receive messages to/from another applicati
 <li>negative acknowledgements (NAKs): receiver tells sender that packet is errors</li>
 </ul>
 </blockquote>
-<h3 id="reliable-data-transfer">Reliable data transfer</h3>
+<h3 id="principles-of-reliable-data-transfer">Principles of  Reliable data transfer</h3>
 <ol>
 <li>seq num (封包座號) 2. ACK(已接收成功) 3. check sum(封包完整) 4. timeout(超時)<br>
 <img src="./assets/3-22.PNG" /><br>
@@ -971,19 +971,20 @@ application process can both send and receive messages to/from another applicati
 </ul>
 <ol start="4">
 <li>send &amp; receive buffers</li>
+<li>Cumulative acks</li>
 <li>full duplex data:</li>
 </ol>
 <ul>
 <li>雙向的傳送<br></li>
 <li>MSS: maximum segment size<br></li>
 </ul>
-<ol start="6">
+<ol start="7">
 <li>connection-oriented:</li>
 </ol>
 <ul>
 <li>handshaking <br></li>
 </ul>
-<ol start="7">
+<ol start="8">
 <li>flow controlled:</li>
 </ol>
 <ul>
@@ -1001,6 +1002,171 @@ application process can both send and receive messages to/from another applicati
 <li>one timer</li>
 <li>pipeline segment</li>
 <li>Cumulative acks</li>
+</ul>
+<h4 id="fast-retransmit">Fast  Retransmit</h4>
+<ul>
+<li>Detect duplicate ACKs three times (沒有進展就重送)</li>
+<li>faster than timeout</li>
+</ul>
+<h4 id="flow-control">Flow control</h4>
+<ul>
+<li>reciever advertises spare room by including value of RcvWindow in segments</li>
+</ul>
+<p><img src="./assets/3-72.PNG" /><br></p>
+<h4 id="tcp-connection-management">TCP Connection Management</h4>
+<p><img src="./assets/3-76.PNG" /><br></p>
+<p><img src="./assets/3-77.PNG" /><br></p>
+<p><img src="./assets/3-78.PNG" /><br></p>
+<p><img src="./assets/3-79.PNG" /><br></p>
+<ul>
+<li>syn robbing : 送出很多syn傳送需求，server allocate 很多buffer，但是都是假的</li>
+</ul>
+<h3 id="principles-of-congestion-control">Principles of Congestion Control</h3>
+<hr />
+<ul>
+<li>too many sources, data, too fast for network to handle</li>
+<li>End-end congestion control : TCP自己判斷</li>
+</ul>
+<ol>
+<li>delay , loss 很多</li>
+</ol>
+<ul>
+<li>Network-assisted congestion control (Router判斷)</li>
+</ul>
+<ol>
+<li>router回饋給end system，告知傳送速度應該多少</li>
+</ol>
+<h4 id="atm-abr-congestion-control">ATM ABR congestion control(非同步模式網路)</h4>
+<ul>
+<li>ABR: available bit rate , elastic service</li>
+<li>RM (resource management) cells: 根據傳送的cell看是否擁擠</li>
+</ul>
+<blockquote>
+<ul>
+<li>NI bit: 不擁擠</li>
+<li>CI bit: 擁擠了</li>
+</ul>
+</blockquote>
+<h3 id="tcp-congestion-control">TCP Congestion Control</h3>
+<hr />
+<ul>
+<li>1 maximum segment size (MSS)</li>
+<li>CongWin</li>
+</ul>
+<p><img src="./assets/3-92.PNG" /><br></p>
+<ul>
+<li>is congestion:</li>
+</ul>
+<ol>
+<li>loss event = timeout or 3 duplicate acks</li>
+<li>TCP sender reduces rate (CongWin) after loss event</li>
+</ol>
+<ul>
+<li>solution :</li>
+</ul>
+<ol>
+<li>AIMD :</li>
+</ol>
+<blockquote>
+<ul>
+<li>Additive-increase : CongWin每個RTT增加一個MSS</li>
+<li>multiplicative-decrease : loss CongWin就減一半</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>slow start : CongWin收到一個ACK增加一個MSS</li>
+<li>Reaction to loss events :</li>
+</ol>
+<blockquote>
+<ul>
+<li>timeout : CongWin set to 1 MSS;</li>
+<li>3 dup ACK : CongWin cut half;</li>
+<li>theshold = loss CongWin/2</li>
+</ul>
+<blockquote>
+<ul>
+<li>congestion-avoidance phase : grows linearly when arrive threshold</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><img src="./assets/3-98.PNG" /><br></p>
+<ul>
+<li>Average throughput</li>
+</ul>
+<p><img src="./assets/3-98.PNG" /><br></p>
+<h1 id="chapter-4-network-layer">Chapter 4 Network Layer</h1>
+<hr />
+<h2 id="forwarding">forwarding:</h2>
+<ul>
+<li>選擇下一個router</li>
+<li>根據table(隨時會變)</li>
+</ul>
+<h2 id="routing">routing</h2>
+<ul>
+<li>找出起點到終點的路徑(最短路徑，隨時會變)</li>
+</ul>
+<h2 id="connection-setup">Connection setup</h2>
+<h2 id="network-and-transport-layer-connection-service">Network and transport layer connection service:</h2>
+<ul>
+<li>Network: between two hosts (IP)</li>
+<li>Transport: between two processes (IP, PORT)</li>
+</ul>
+<h2 id="connection-and-connection-less-service">connection and connection-less service</h2>
+<ul>
+<li>Datagram network : connectionless service</li>
+<li>VC network : connection service</li>
+<li>Service: host-to-host (network layer)</li>
+<li>No choice: 只能選用一種</li>
+<li>in the core (在router)</li>
+</ul>
+<h2 id="virtual-circuits">Virtual circuits</h2>
+<ul>
+<li>要先建connection</li>
+<li>每個packet都有VC ID，每經過router都會改變  (沒有IP因為路線已經建好了)</li>
+<li>保證一定速度、頻寬、loss、delay</li>
+<li>每個router都有forwarding table來maintain connection</li>
+<li>存每個connection可使用的資源</li>
+<li>VC teardown 結束</li>
+</ul>
+<h2 id="datagram-networks-internet">Datagram networks (Internet)</h2>
+<ul>
+<li>no call setup</li>
+<li>每個封包都有紀錄起點&amp;終點IP</li>
+<li>有多少頻寬就用多少，不保證速度、loss、delay</li>
+<li>packets forwarded using destination host address</li>
+</ul>
+<p><img src="./assets/4-18.PNG" /><br></p>
+<h2 id="router-architecture">Router Architecture</h2>
+<ul>
+<li>建table : routing algorithms/protocol (RIP, OSPF, BGP)</li>
+<li>forwarding datagrams from incoming to outgoing link</li>
+<li>switching farbic : 將查表後的封包轉到對應port的機器</li>
+<li>goal: complete input output at ‘line speed’ (進來速度和出去一樣)</li>
+</ul>
+<h3 id="input-port">Input port</h3>
+<p><img src="./assets/4-22.PNG" /><br></p>
+<h4 id="head-of-the-line-hol-blocking">Head-of-the-Line (HOL) blocking</h4>
+<ul>
+<li>input port queue 的第一個packet搶不到對應output port的位置，導致那個input port卡住</li>
+</ul>
+<h4 id="three-types-of-switching-fabrics">Three types of switching fabrics</h4>
+<ol>
+<li>via memory (packet寫入memory，再由目的端讀取)</li>
+</ol>
+<blockquote>
+<ul>
+<li>slow (need two memory access , cpoy packet)<br>
+2. via bus (input port廣播packet給每個output port，由output port決定要不要收)</li>
+<li>switching speed limited by bus bandwidth <br>
+3. via crossbar (棋盤式路線)</li>
+<li>同時給同一個port還是會卡住</li>
+</ul>
+</blockquote>
+<h3 id="output-port">Output port</h3>
+<p><img src="./assets/4-27.PNG" /><br></p>
+<ul>
+<li>Buffering : 存太快進來的就先存近來 (可能會loss)</li>
+<li>Scheduling discipline : schedule algorithm決定優先順序</li>
 </ul>
 
     </body>
