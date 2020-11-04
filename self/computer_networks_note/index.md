@@ -720,6 +720,154 @@ eg, KaZaA (非標準)
 * Buffering : 存太快進來的就先存近來 (可能會loss)
 * Scheduling discipline : schedule algorithm決定優先順序
 
+## IP: Internet Protocol
+
+<img src="./assets/4-31.PNG" /><br>
+
+<img src="./assets/4-33.PNG" /><br>
+
+<img src="./assets/4-35.PNG" /><br>
+
+* IP address: 32-bit identifier for host, router interface
+> * CIDR: Classless InterDomain Routing : a.b.c.d/x -> x = subnet bits
+> * subnet part (high order bits)
+>> * same subnet connect don't need router
+
+<img src="./assets/4-40.PNG" /><br>
+
+> * host part (low order bits) 
+ 
+* router have mutiple IP ( 網路卡數量)
+* host usually have one IP
+* DHCP: Dynamic Host Configuration Protocol: 動態IP
+* ICANN: Internet Corporation for Assigned Names and Numbers : 授權IP的組織
+
+#### NAT: Network Address Translation
+* 對外共用同一個IP，內部IP用New port分辨(16bits, 60000)
+> * 出去的datagrams: (source IP address, port #) 改為 (NAT IP address, new port #)
+> * 紀錄 NAT translation table
+> * 進來的datagram用table轉為local IP
+* NAT 內的無法被動接收 -> 固定New port
+
+#### ICMP: Internet Control Message Protocol
+* error reporting, echo request/reply (used by ping
+* network-layer “above” IP: ICMP messages carried in IP datagrams
+* Traceroute : sends many of UDP segments to dest
+> * First has TTL =1 (過一個router減一)
+> * Second has TTL=2, etc.
+> * 送假的 port number : 最後回傳“port unreachable” packet (type 3, code 3)
+
+#### IPv6
+* 原因IPv4 : 32-bit address 快被用完了
+* IPv6: 128-bits IP address
+* header format change : 40 btyes header
+* no fragmentation allowed (ICMPv6: new error types “Packet Too Big”)
+* Checksum: removed 
+* Options: allowed, but outside of header, indicated by “Next Header” field
+
+
+<img src="./assets/4-57.PNG" /><br>
+
+* Transition From IPv4 To IPv6 :
+> * Tunneling
+
+<img src="./assets/4-60.PNG" /><br>
+
+## Routing algorithms
+* Static: routes change slowly over time
+* Dynamic: periodic update, change when link cost changes
+
+### Global: 每個router都有完整的網路結構
+* “link state” algorithms
+* Dijkstra’s algorithm : O(n2)
+1. c(x,y): link cost 
+2. D(v): 目前到V得最少cost
+3. p(v): 到v的前一個node
+4. N': 已經走過的node集合
+5. 有可能震盪
+
+<img src="./assets/4-69.PNG" /><br>
+
+###  Decentralized : 只知道鄰居有誰、速度如何
+* “distance vector” algorithms
+* Bellman-Ford :
+1. dx(y) = min {c(x,v) + dv(y) }
+2. c(x,y): link cost 
+3. self distance vectors Dx(y) = 目前到y得最少cost
+4. maintain neighbors’ distance vectors (router交換)
+5. if self DV changes : notify neighbors
+6. cost變小收斂快、變大收斂慢
+
+### Hierarchical Routing (階層式)
+* "autonomous systems” (AS) : 自治區
+* 同一個AS自行決定routing protocal(algorithm)
+* “intra-AS” routing -> same AS
+* “inter-AS” routing -> outer AS , intra connect with gateway
+* Hot potato routing : min cost gateway
+
+## Routing in the Internet
+### Intra-AS Routing : Interior Gateway Protocols (IGP)
+1. RIP: Routing Information Protocol
+> * <b>application-level </b> ，經UDP
+> * Distance vector algorithm
+> * edge cost = 1  -> hops (走幾步)
+> * 每30sec交換一次(also called "advertisement")，經UDP
+> * 108sec沒有回應視為router死掉，所有經過的路徑設為invalidated
+
+2. OSPF: Open Shortest Path First
+> * Link State algorithm 
+> * "advertisement"，經IP
+> * Security : 交換要認證
+> * Multiple same-cost paths allowed (維護多個短路徑)
+> * TOS : 不同用途link cost不一樣
+> * Hierarchical OSPF in large domains. (backbone , area)
+
+### Internet inter-AS routing : BGP (Border Gateway Protocol)
+* 讓subnet在Internet廣播: “I am here”
+* pair of routers exchange with TCP connections : BGP sessions
+* eBGP session : inter-AS之間傳 prefix reachability information 
+* iBGP session : intra-AS之間廣播 advertisement
+* advertisement  = prefix + attributes (AS-PATH, NEXT-HOP)
+* gateway uses import policy to accept/decline advertisement.
+
+#### BGP messages
+1. OPEN: opens TCP connection to peer and authenticates sender
+2. UPDATE: advertises new path (or withdraws old)
+3. KEEPALIVE keeps connection alive
+4. NOTIFICATION: reports errors or close connection
+
+### different Intra- and Inter-AS routing 
+* Intra-AS: can focus on performance
+* Inter-AS: policy may dominate over performance(control traffic)
+
+## Broadcast and multicast routing 
+
+### Broadcast routing algorithms
+* Uncontrolled flooding : may have cycle
+* Controlled flooding : 
+> 1. stop when broadcast ID have been send
+> 2. drop when receive packet not from shortest path
+* Spanning-tree broadcast : build tree first then send -> no cycle
+
+### Multicast Routing
+
+<img src="./assets/4-128.PNG" /><br>
+
+* source-based tree: one tree per source
+> * shortest path trees , reverse path forwarding
+* group-shared tree: group uses one tree
+> * minimal spanning (Steiner) : NPC-problem
+> * center-based trees 
+
+#### DVMRP: distance vector multicast routing protocol
+* flood and prune(刪除不必要旁枝)
+* soft state : 定時傳送已經prune
+* Tunneling : some router only support unicast (包裝)
+* following IGMP join at leaf
+
+#### PIM: Protocol Independent Multicast
+* Dense : 假設大家都是(flood, RPF)，少部分在prune
+* Sparse:假設大家都不是(center base)，少部分在join
 
 
 

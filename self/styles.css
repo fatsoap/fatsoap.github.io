@@ -1,0 +1,107 @@
+/*base*/
+body{
+    background-color: #000000;
+    background-size: auto;
+    /*background-position: top;*/
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: #ffffff;
+    padding-top: 0px;
+    margin: 0px;
+    /*opacity:0.4;
+    filter:alpha(opacity=40);*/
+}
+
+.background{
+    background-repeat: repeat-y;
+    width: 1700px;
+    height: 100%;
+    /*height: 932px;*/
+    margin: 0px;
+    padding: 0px;
+}
+
+.interface{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+._logo{
+    position: absolute;
+    width: 40px;
+    height: 40px; 
+}
+.logo{
+    position: absolute;
+    left: 30px;
+    top: 400px;
+    width: 100px;
+    height: 100px; 
+}
+
+._block{
+    background-position-x: -160px;
+    opacity:1;
+    position: absolute;
+    margin: 50px;
+    top: 50px;
+    left: 30px;
+    text-align:center;
+    width: 1700px;
+    height: 2000px;
+    border: 3px solid #f3ed95;
+    padding: 10px;
+}
+
+._b_block{
+    position: absolute;
+    left: 10px;
+    opacity:1;
+    top: 900px;
+    margin: 50px;
+    width: 1800px;
+    height: 900px;
+    background_color: black
+}
+
+._text{
+    position: absolute;
+    background-color: #00000088;
+    margin:20px;
+    width: 360px; 
+    padding-left: 0px;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Segoe UI';
+    color: #e0dede;
+}
+
+.link_block{
+	position: relative;
+	background-color : #000000;
+	margin:50px;
+	float: left;
+	width: 220px;
+	height: 250px;	
+	color: #e0dede;
+	text-align: center;
+	font-size:25px;
+}
+
+.link_icon{
+	position: relative;
+	float: left;
+	margin-left: 35px;
+	margin-top: 15px;
+	margin-bottom: 30px;
+	width: 150px;
+	height: 150px;	
+}
+
+
+
