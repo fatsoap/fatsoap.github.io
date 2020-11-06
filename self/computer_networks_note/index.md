@@ -388,11 +388,16 @@ eg, KaZaA (非標準)
 * Nonpersistent HTTP
 > * At most one object is sent over a TCP connection.
 > * 一個TCP連線只能傳送一個object，送完就關閉連線
-> * 2 RTTs per object :一個建連線一個要求object
+> * without parallel connection Non-persistent :
+> 1. Each objection takes two RTT (assuming no window limit) one for TCP connection and other for HTTP image/text file.
+> * with parallel connection Non-persistent :
+> 2. <img src="./assets/2-27-1.PNG" /><br>
+
 * Persistent HTTP
 > * 一個TCP 連線可以傳送多個objects 
 > 1. without pipelining : one RTT for each object
 > 2. with pipelining : 幾乎只要one RTT
+<img src="./assets/2-27-2.PNG" /><br>
 
 * HTTP request message
 
@@ -655,7 +660,7 @@ eg, KaZaA (非標準)
 
 * Average throughput
 
-<img src="./assets/3-98.PNG" /><br>
+<img src="./assets/3-101.PNG" /><br>
 
 # Chapter 4 Network Layer
 ---

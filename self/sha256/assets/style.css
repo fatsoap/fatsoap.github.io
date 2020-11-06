@@ -1,0 +1,117 @@
+/*base*/
+body{
+    background-color: #000000;
+    background-size: auto;
+    /*background-position: top;*/
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: #ffffff;
+    padding-top: 0px;
+    margin: 0px;
+    /*opacity:0.4;
+    filter:alpha(opacity=40);*/
+}
+
+.background{
+    background-repeat: repeat-y;
+    width: 1700px;
+    height: 100%;
+    /*height: 932px;*/
+    margin: 0px;
+    padding: 0px;
+}
+
+.interface{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+._logo{
+    position: absolute;
+    width: 40px;
+    height: 40px; 
+}
+.logo{
+    position: absolute;
+    left: 30px;
+    top: 400px;
+    width: 100px;
+    height: 100px; 
+}
+
+._block{
+    background-position-x: -160px;
+    opacity:1;
+    position: absolute;
+    margin: 50px;
+    top: 50px;
+    left: 30px;
+    text-align:center;
+    width: 1700px;
+    height: 1200px;
+    border: 3px solid #f3ed95;
+    padding: 10px;
+}
+
+._locker{
+	position: absolute;
+    left: 20px;
+    opacity:1;
+    top: 1000px;
+    margin: 50px;
+    width: 48px;
+    height: 48px;
+	background-color: #00000088;
+}
+
+#input_{
+    position: absolute;
+    left: 100px;
+    opacity:1;
+    top: 1000px;
+    margin: 50px;
+    width: 300px;
+    height: 48px;
+	font-size: 25px;
+	color: #e0dede;
+    background-color: #00000088;
+}
+#button_{
+    position: absolute;
+    left: 450px;
+    opacity:1;
+    top: 1000px;
+    margin: 50px;
+    width: 180px;
+    height: 50px;
+	font-size: 25px;
+	color: #ece6e6;
+	background-color: #00000088;
+	border: 3px solid #FFCFCF;
+}
+#button_:hover {
+	color: #1D1D1D;
+	background-color: #D0FFCF;
+}
+#output_{
+    position: absolute;
+    left: 680px;
+    opacity:1;
+    top: 1000px;
+    margin: 50px;
+    width: 900px;
+    height: 48px;
+	font-size: 25px;
+    color: #e0dede;
+    background-color: #00000088;
+}
+
+
+
+
+

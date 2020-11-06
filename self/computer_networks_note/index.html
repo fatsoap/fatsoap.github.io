@@ -675,8 +675,17 @@ eg, HTTP, SMTP (標準)</li>
 <ul>
 <li>At most one object is sent over a TCP connection.</li>
 <li>一個TCP連線只能傳送一個object，送完就關閉連線</li>
-<li>2 RTTs per object :一個建連線一個要求object</li>
+<li>without parallel connection Non-persistent :</li>
 </ul>
+<ol>
+<li>Each objection takes two RTT (assuming no window limit) one for TCP connection and other for HTTP image/text file.</li>
+</ol>
+<ul>
+<li>with parallel connection Non-persistent :</li>
+</ul>
+<ol start="2">
+<li><img src="./assets/2-27-1.PNG" /><br></li>
+</ol>
 </blockquote>
 <ul>
 <li>Persistent HTTP</li>
@@ -687,7 +696,8 @@ eg, HTTP, SMTP (標準)</li>
 </ul>
 <ol>
 <li>without pipelining : one RTT for each object</li>
-<li>with pipelining : 幾乎只要one RTT</li>
+<li>with pipelining : 幾乎只要one RTT
+<img src="./assets/2-27-2.PNG" /><br></li>
 </ol>
 </blockquote>
 <ul>
@@ -1093,7 +1103,7 @@ application process can both send and receive messages to/from another applicati
 <ul>
 <li>Average throughput</li>
 </ul>
-<p><img src="./assets/3-98.PNG" /><br></p>
+<p><img src="./assets/3-101.PNG" /><br></p>
 <h1 id="chapter-4-network-layer">Chapter 4 Network Layer</h1>
 <hr />
 <h2 id="forwarding">forwarding:</h2>
